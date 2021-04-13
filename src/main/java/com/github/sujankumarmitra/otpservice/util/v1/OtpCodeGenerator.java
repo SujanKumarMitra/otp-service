@@ -6,6 +6,7 @@ package com.github.sujankumarmitra.otpservice.util.v1;
  * @author skmitra
  * @version 1
  */
+@FunctionalInterface
 public interface OtpCodeGenerator {
     /**
      * @return new otp-code

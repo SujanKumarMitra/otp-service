@@ -5,6 +5,15 @@ import org.springframework.stereotype.Component;
 import java.security.SecureRandom;
 import java.util.PrimitiveIterator;
 
+/**
+ * {@inheritDoc}
+ * <p>
+ * This class uses {@link SecureRandom} to generate random otp-codes
+ *
+ * @author skmitra
+ * @version 1
+ * @implNote The length of the otp-code is {@code 6}. It consists of alphabets,numbers and special characters.
+ */
 @Component
 public class SecureRandomOtpCodeGenerator implements OtpCodeGenerator {
 
@@ -22,6 +31,10 @@ public class SecureRandomOtpCodeGenerator implements OtpCodeGenerator {
     public SecureRandomOtpCodeGenerator() {
         random = new SecureRandom();
 
+        /*
+         * Infinite Iterators which generate random indexes of specified bounds.
+         *
+         * */
         lowerCaseCharsIndexIterator = random.ints(0, LOWER_CASE_ALPHABETS.length).iterator();
         upperCaseCharsIndexIterator = random.ints(0, UPPER_CASE_ALPHABETS.length).iterator();
         numbersIndexIterator = random.ints(0, NUMBERS.length).iterator();
@@ -32,6 +45,9 @@ public class SecureRandomOtpCodeGenerator implements OtpCodeGenerator {
     public String generateNewOtpCode() {
         final StringBuilder code = new StringBuilder();
 
+        /*
+         * Append characters from dictionary with random indexes.
+         * */
         code.append(UPPER_CASE_ALPHABETS[upperCaseCharsIndexIterator.next()]);
         code.append(SPECIAL_CHARS[specialCharsIndexIterator.next()]);
         code.append(NUMBERS[numbersIndexIterator.next()]);
