@@ -26,4 +26,14 @@ public interface OtpTransaction {
      * @return the otp associated with this transaction
      */
     Otp getAssociatedOtp();
+
+    /**
+     * @return the reason phrase of current state
+     */
+    String getCurrentStateReasonPhrase();
+
+    /**
+     * @param reasonPhrase the reason phrase of current state
+     */
+    void setCurrentStateReasonPhrase(String reasonPhrase);
 }

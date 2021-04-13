@@ -4,11 +4,11 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
- * This interface represent the otp that was created due to {@link OtpCreateRequest}
+ * This interface represent the otp that was created due to {@link CreateOtpRequest}
  *
  * @author skmitra
  * @version 1
- * @see OtpCreateRequest
+ * @see CreateOtpRequest
  */
 public interface Otp {
 

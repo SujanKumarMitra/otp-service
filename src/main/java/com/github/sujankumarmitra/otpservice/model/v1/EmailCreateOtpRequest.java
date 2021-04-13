@@ -5,9 +5,9 @@ package com.github.sujankumarmitra.otpservice.model.v1;
  *
  * @author skmitra
  * @version 1
- * @see com.github.sujankumarmitra.otpservice.model.v1.OtpCreateRequest
+ * @see CreateOtpRequest
  */
-public interface EmailOtpCreateRequest extends OtpCreateRequest {
+public interface EmailCreateOtpRequest extends CreateOtpRequest {
 
     /**
      * Represents the email address to which this otp should be sent

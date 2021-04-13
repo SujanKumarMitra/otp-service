@@ -5,9 +5,9 @@ package com.github.sujankumarmitra.otpservice.model.v1;
  *
  * @author skmitra
  * @version 1
- * @see OtpCreateRequest
+ * @see CreateOtpRequest
  */
-public interface OtpCreateResponse {
+public interface CreateOtpResponse {
 
     /**
      * Returns the id of the otp.

@@ -1,7 +1,7 @@
 package com.github.sujankumarmitra.otpservice.configuration.v1;
 
 import com.github.sujankumarmitra.otpservice.model.v1.Otp;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpCreateRequest;
+import com.github.sujankumarmitra.otpservice.model.v1.CreateOtpRequest;
 
 /**
  * This interface represents the configuration related to otp
@@ -18,7 +18,7 @@ public interface OtpConfiguration {
      * @return the messageTemplate
      * @apiNote the template must contain a placeholder to place the otp-code
      * @see Otp#getCode()
-     * @see OtpCreateRequest#getMessageTemplate()
+     * @see CreateOtpRequest#getMessageTemplate()
      * @see #getMessageTemplateCodePlaceholderRegex()
      */
     String getDefaultMessageTemplate();

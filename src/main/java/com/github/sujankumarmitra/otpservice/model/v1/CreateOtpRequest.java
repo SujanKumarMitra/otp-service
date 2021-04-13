@@ -8,7 +8,7 @@ import com.github.sujankumarmitra.otpservice.configuration.v1.OtpConfiguration;
  * @author skmitra
  * @version 1
  */
-public interface OtpCreateRequest {
+public interface CreateOtpRequest {
 
     /**
      * Represents an message to be sent to the sender with the otp code attached.

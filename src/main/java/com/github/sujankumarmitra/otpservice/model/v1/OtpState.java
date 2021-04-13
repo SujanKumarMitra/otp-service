@@ -18,7 +18,7 @@ package com.github.sujankumarmitra.otpservice.model.v1;
  */
 public enum OtpState {
     /**
-     * {@link OtpCreateRequest} is accepted.
+     * {@link CreateOtpRequest} is accepted.
      */
     NEW("NEW"),
     /**
