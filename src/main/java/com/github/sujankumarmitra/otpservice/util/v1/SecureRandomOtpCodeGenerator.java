@@ -48,12 +48,12 @@ public class SecureRandomOtpCodeGenerator implements OtpCodeGenerator {
         /*
          * Append characters from dictionary with random indexes.
          * */
-        code.append(UPPER_CASE_ALPHABETS[upperCaseCharsIndexIterator.next()]);
-        code.append(SPECIAL_CHARS[specialCharsIndexIterator.next()]);
-        code.append(NUMBERS[numbersIndexIterator.next()]);
-        code.append(LOWER_CASE_ALPHABETS[lowerCaseCharsIndexIterator.next()]);
-        code.append(SPECIAL_CHARS[specialCharsIndexIterator.next()]);
-        code.append(NUMBERS[numbersIndexIterator.next()]);
+        code.append(UPPER_CASE_ALPHABETS[upperCaseCharsIndexIterator.nextInt()]);
+        code.append(SPECIAL_CHARS[specialCharsIndexIterator.nextInt()]);
+        code.append(NUMBERS[numbersIndexIterator.nextInt()]);
+        code.append(LOWER_CASE_ALPHABETS[lowerCaseCharsIndexIterator.nextInt()]);
+        code.append(SPECIAL_CHARS[specialCharsIndexIterator.nextInt()]);
+        code.append(NUMBERS[numbersIndexIterator.nextInt()]);
 
         return code.toString();
     }
