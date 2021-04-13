@@ -10,7 +10,7 @@ public interface EmailOtp extends Otp {
      *
      * @return the email address
      */
-    String getEmailAddressToSend();
+    String getEmailToBeSent();
 
     /**
      * Returns the message which is to be sent to the user.

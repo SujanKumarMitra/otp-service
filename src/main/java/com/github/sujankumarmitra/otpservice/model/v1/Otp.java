@@ -37,7 +37,7 @@ public interface Otp {
 
     /**
      * Represents the duration after {@link #getCreatedAt()},
-     * following which, the otp will become invalid.
+     * following which, the otp will become {@link OtpState#EXPIRED}.
      *
      * @return the duration of validity after which, this otp will become invalid
      */
