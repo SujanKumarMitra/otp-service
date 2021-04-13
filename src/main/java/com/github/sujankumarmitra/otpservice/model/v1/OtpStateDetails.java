@@ -10,12 +10,18 @@ package com.github.sujankumarmitra.otpservice.model.v1;
 public interface OtpStateDetails {
 
     /**
-     * @return state enum
+     * @return the otpId associated with this state
+     * @see Otp#getId()
      */
-    OtpState getState();
+    String getOtpId();
 
     /**
-     * @return the reason for which the otp-transaction is currently at
+     * @return state enum
+     */
+    OtpState getCurrentState();
+
+    /**
+     * @return the reason for which the {@link #getCurrentState()} is currently at.
      */
     String getCurrentStateReasonPhrase();
 }
