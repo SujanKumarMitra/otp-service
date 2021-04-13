@@ -9,6 +9,9 @@ import com.github.sujankumarmitra.otpservice.model.v1.*;
  *
  * This interface contains operations related to @{@link Otp}
  * @param <T> type of {@link CreateOtpRequest}
+ *
+ * @author skmitra
+ * @version 1
  */
 public interface OtpService<T extends CreateOtpRequest> {
 
