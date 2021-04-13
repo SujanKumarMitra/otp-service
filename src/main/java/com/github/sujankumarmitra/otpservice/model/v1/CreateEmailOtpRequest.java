@@ -7,12 +7,12 @@ package com.github.sujankumarmitra.otpservice.model.v1;
  * @version 1
  * @see CreateOtpRequest
  */
-public interface EmailCreateOtpRequest extends CreateOtpRequest {
+public interface CreateEmailOtpRequest extends CreateOtpRequest {
 
     /**
      * Represents the email address to which this otp should be sent
      *
-     * @return
+     * @return email address
      */
     String getEmailToBeSent();
 }
