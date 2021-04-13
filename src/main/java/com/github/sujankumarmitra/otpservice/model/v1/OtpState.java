@@ -1,7 +1,6 @@
 package com.github.sujankumarmitra.otpservice.model.v1;
 
 /**
- * This enum represents the current state of the otp.
  * The state depicts at which phrase the otp-transaction is currently at.
  *
  * @author skmitra

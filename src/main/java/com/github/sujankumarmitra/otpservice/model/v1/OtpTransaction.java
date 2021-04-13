@@ -11,29 +11,19 @@ import com.github.sujankumarmitra.otpservice.exception.v1.InvalidOtpStateTransit
 public interface OtpTransaction {
 
     /**
-     * @return the current state
-     */
-    OtpState getCurrentState();
-
-    /**
-     * @param state the current state
-     * @throws InvalidOtpStateTransitionException when invalid state transition is attempted.
-     * @apiNote the argument passed must match the state transition rules mentioned in @{@link OtpState}
-     */
-    void setCurrentState(OtpState state) throws InvalidOtpStateTransitionException;
-
-    /**
      * @return the otp associated with this transaction
      */
     Otp getAssociatedOtp();
 
     /**
-     * @return the reason phrase of current state
+     * @return the current state details
      */
-    String getCurrentStateReasonPhrase();
+    OtpStateDetails getCurrentState();
 
     /**
-     * @param reasonPhrase the reason phrase of current state
+     * @param stateDetails the current state details
+     * @throws InvalidOtpStateTransitionException when invalid state transition is attempted.
+     * @apiNote the {@link OtpStateDetails#getState()} passed must match the state transition rules mentioned in @{@link OtpState}
      */
-    void setCurrentStateReasonPhrase(String reasonPhrase);
+    void setCurrentState(OtpStateDetails stateDetails) throws InvalidOtpStateTransitionException;
 }
