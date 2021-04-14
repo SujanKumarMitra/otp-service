@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 
-public class BasicEmailOtp implements EmailOtp {
+public class BasicEmailOtp extends AbstractEmailOtp implements EmailOtp {
 
     private final String id;
     private final String code;

@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author skmitra
  * @version 1
  */
-public class BasicEmailMessage implements EmailMessage {
+public class BasicEmailMessage extends AbstractEmailMessage implements EmailMessage {
 
     private final Collection<String> recipients;
     private final String subject;
