@@ -1,5 +1,6 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpAlreadyExistsException;
 import com.github.sujankumarmitra.otpservice.model.v1.BasicEmailOtp;
 import com.github.sujankumarmitra.otpservice.model.v1.EmailOtp;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,7 @@ class EmailOtpDaoTest {
 
     protected final String VALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb892";
     protected final String INVALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb893";
+    protected final String EXISTING_OTP_ID = "86746728-4796-4fc6-a976-3eb34af6a58d";
 
     @BeforeEach
     void setUp() {
@@ -45,6 +47,20 @@ class EmailOtpDaoTest {
                 .build();
 
         assertDoesNotThrow(() -> daoUnderTest.save(emailOtp));
+    }
+
+    @Test
+    void givenOtpWithExistingId_whenSaved_shouldThrowException() {
+        EmailOtp emailOtp = BasicEmailOtp.newBuilder()
+                .withId(EXISTING_OTP_ID)
+                .withCode("q1X0z!")
+                .withCreatedAtNow()
+                .withDurationBeforeExpiry(Duration.ofMinutes(5))
+                .withEmailAddress("mitrakumarsujan@gmail.com")
+                .withMessageBody("OTP Code: abcd")
+                .build();
+
+        assertThrows(OtpAlreadyExistsException.class, ()-> daoUnderTest.save(emailOtp));
     }
 
     @Test

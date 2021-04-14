@@ -4,7 +4,7 @@ import com.github.sujankumarmitra.otpservice.exception.v1.OtpAlreadyExistsExcept
 import com.github.sujankumarmitra.otpservice.model.v1.EmailOtp;
 import com.github.sujankumarmitra.otpservice.util.v1.EmailOtpResultSetExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -42,8 +42,8 @@ public class JdbcEmailOtpDao implements EmailOtpDao {
                             otp.getDurationBeforeExpiry().toMillis(),
                             otp.getEmailAddress(),
                             otp.getMessageBody());
-        } catch (DataAccessException e) {
-            throw e;
+        } catch (DuplicateKeyException e) {
+            throw new OtpAlreadyExistsException(otp.getId());
         }
     }
 

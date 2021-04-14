@@ -50,7 +50,22 @@ class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
             @Sql(executionPhase = BEFORE_TEST_METHOD,
                     scripts = {
                             "classpath:/new-schema.sql",
-                            "classpath:/insert_valid_email-otp.sql"
+                            "classpath:/insert-existing-otp.sql"
+                    }),
+            @Sql(executionPhase = AFTER_TEST_METHOD,
+                    scripts = "classpath:/truncate-all.sql")
+    })
+    void givenOtpWithExistingId_whenSaved_shouldThrowException() {
+        super.givenOtpWithExistingId_whenSaved_shouldThrowException();
+    }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(executionPhase = BEFORE_TEST_METHOD,
+                    scripts = {
+                            "classpath:/new-schema.sql",
+                            "classpath:/insert-valid-otp.sql"
                     }),
             @Sql(executionPhase = AFTER_TEST_METHOD,
                     scripts = "classpath:/truncate-all.sql")
