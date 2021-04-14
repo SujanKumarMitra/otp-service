@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1
  * @see EmailOtpDao
  */
-class EmailOtpDaoTest {
+abstract class EmailOtpDaoTest {
 
     protected EmailOtpDao daoUnderTest;
     protected Logger logger;
