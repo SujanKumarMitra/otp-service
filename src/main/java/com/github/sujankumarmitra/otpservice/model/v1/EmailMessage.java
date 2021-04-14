@@ -1,4 +1,4 @@
-package com.github.sujankumarmitra.otpservice.service.v1;
+package com.github.sujankumarmitra.otpservice.model.v1;
 
 import java.util.Collection;
 

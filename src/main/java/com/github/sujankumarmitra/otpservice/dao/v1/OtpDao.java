@@ -8,5 +8,5 @@ public interface OtpDao<T extends Otp> {
 
     void save(T otp);
 
-    Optional<T> getOtp(String optId);
+    Optional<T> getOtp(String otpId);
 }

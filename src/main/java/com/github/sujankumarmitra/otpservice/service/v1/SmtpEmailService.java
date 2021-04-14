@@ -1,6 +1,7 @@
 package com.github.sujankumarmitra.otpservice.service.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.EmailMessagingException;
+import com.github.sujankumarmitra.otpservice.model.v1.EmailMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;

@@ -1,0 +1,14 @@
+version: "3"
+services:
+  mysql:
+    image: "mysql"
+    container_name: "mysql_db"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "/home/skmitra/Docker/volumes/mysql_db:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_USER=guest"
+      - "MYSQL_PASSWORD=guest"
+      - "MYSQL_DATABASE=guest_db"

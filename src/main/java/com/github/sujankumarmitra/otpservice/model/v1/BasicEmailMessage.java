@@ -1,4 +1,4 @@
-package com.github.sujankumarmitra.otpservice.service.v1;
+package com.github.sujankumarmitra.otpservice.model.v1;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -39,7 +39,7 @@ public class BasicEmailMessage implements EmailMessage {
         return body;
     }
 
-    public static EmailMessage.Builder<BasicEmailMessage> newBuilder() {
+    public static EmailMessage.Builder<EmailMessage> newBuilder() {
         return new BasicEmailMessageBuilder();
     }
 
@@ -47,7 +47,7 @@ public class BasicEmailMessage implements EmailMessage {
      * @author skmitra
      * @version 1
      */
-    public static class BasicEmailMessageBuilder implements EmailMessage.Builder<BasicEmailMessage> {
+    public static class BasicEmailMessageBuilder implements EmailMessage.Builder<EmailMessage> {
         private Collection<String> recipients;
         private String subject;
         private String body;
@@ -57,25 +57,25 @@ public class BasicEmailMessage implements EmailMessage {
         }
 
         @Override
-        public Builder<BasicEmailMessage> withSubject(String subject) {
+        public Builder<EmailMessage> withSubject(String subject) {
             this.subject = subject;
             return this;
         }
 
         @Override
-        public Builder<BasicEmailMessage> withBody(String body) {
+        public Builder<EmailMessage> withBody(String body) {
             this.body = body;
             return this;
         }
 
         @Override
-        public Builder<BasicEmailMessage> withRecipient(String recipient) {
+        public Builder<EmailMessage> withRecipient(String recipient) {
             this.recipients.add(recipient);
             return this;
         }
 
         @Override
-        public Builder<BasicEmailMessage> withRecipients(String... recipients) {
+        public Builder<EmailMessage> withRecipients(String... recipients) {
             for (String recipient : recipients) {
                 this.recipients.add(recipient);
             }
@@ -83,13 +83,13 @@ public class BasicEmailMessage implements EmailMessage {
         }
 
         @Override
-        public Builder<BasicEmailMessage> withRecipients(Collection<String> recipients) {
+        public Builder<EmailMessage> withRecipients(Collection<String> recipients) {
             this.recipients.addAll(recipients);
             return this;
         }
 
         @Override
-        public BasicEmailMessage build() throws NullPointerException {
+        public EmailMessage build() throws NullPointerException {
             return new BasicEmailMessage(this.recipients, this.subject, this.body);
         }
     }

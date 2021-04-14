@@ -1,6 +1,8 @@
 package com.github.sujankumarmitra.otpservice.service.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.EmailMessagingException;
+import com.github.sujankumarmitra.otpservice.model.v1.BasicEmailMessage;
+import com.github.sujankumarmitra.otpservice.model.v1.EmailMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -30,7 +32,7 @@ abstract class EmailServiceTest {
 
     @Test
     void givenValidEmailMessage_whenSendEmail_shouldSendMail() {
-        BasicEmailMessage message = BasicEmailMessage.newBuilder()
+        EmailMessage message = BasicEmailMessage.newBuilder()
                 .withRecipient(VALID_EMAIL_ADDRESS)
                 .withSubject("Test Subject")
                 .withBody("Test Body")
@@ -41,7 +43,7 @@ abstract class EmailServiceTest {
 
     @Test
     void givenInvalidEmailRecipient_whenSendEmail_shouldNotBeAbleToSendMail() {
-        BasicEmailMessage message = BasicEmailMessage.newBuilder()
+        EmailMessage message = BasicEmailMessage.newBuilder()
                 .withRecipient(INVALID_EMAIL_ADDRESS)
                 .withSubject("Test Subject")
                 .withBody("Test Body")
