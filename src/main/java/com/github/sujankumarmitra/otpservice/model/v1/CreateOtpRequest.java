@@ -1,6 +1,6 @@
 package com.github.sujankumarmitra.otpservice.model.v1;
 
-import com.github.sujankumarmitra.otpservice.configuration.v1.OtpConfiguration;
+import com.github.sujankumarmitra.otpservice.configuration.v1.OtpProperties;
 
 /**
  * This interface represents an request to create a new otp.
@@ -15,7 +15,7 @@ public interface CreateOtpRequest {
      * The message template should contain an regex indicating where the otp-code is to be placed.
      *
      * @return the message
-     * @see OtpConfiguration#getMessageTemplateCodePlaceholderRegex()
+     * @see OtpProperties#getMessageTemplateCodePlaceholderRegex()
      */
     String getMessageTemplate();
 

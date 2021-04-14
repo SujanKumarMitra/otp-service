@@ -5,12 +5,12 @@ import com.github.sujankumarmitra.otpservice.model.v1.CreateOtpRequest;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpState;
 
 /**
- * This interface represents the configuration related to otp
+ * This interface represents the configuration properties related to otp
  *
  * @author skmitra
  * @version 1
  */
-public interface OtpConfiguration {
+public interface OtpProperties {
 
     /**
      * Represents a default message template which is to be sent to user,

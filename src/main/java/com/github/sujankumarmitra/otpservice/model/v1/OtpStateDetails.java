@@ -24,4 +24,10 @@ public interface OtpStateDetails {
      * @return the reason for which the {@link #getCurrentState()} is currently at.
      */
     String getCurrentStateReasonPhrase();
+
+
+    /**
+     * @return total no of attempts made for otp-verification
+     */
+    long getTotalVerificationAttemptsMade();
 }
