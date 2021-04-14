@@ -7,6 +7,13 @@ import org.slf4j.Logger;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * This class contains tests for {@link OtpCodeGenerator}
+ *
+ * @author skmitra
+ * @version 1
+ * @see OtpCodeGenerator
+ */
 abstract class OtpCodeGeneratorTest {
     protected OtpCodeGenerator generatorUnderTest;
     protected Logger logger;

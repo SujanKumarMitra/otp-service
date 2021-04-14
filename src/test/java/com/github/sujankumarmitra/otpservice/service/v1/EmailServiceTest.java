@@ -7,6 +7,13 @@ import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests of functionality of {@link EmailService}
+ *
+ * @author skmitra
+ * @version 1
+ * @see EmailService
+ */
 abstract class EmailServiceTest {
 
     public static final String VALID_EMAIL_ADDRESS = "mitrakumarsujan@gmail.com";

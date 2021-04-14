@@ -6,6 +6,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * {@inheritDoc}
+ * <p>
+ * Tests for {@link SmtpEmailService}
+ *
+ * @author skmitra
+ * @version 1
+ * @see EmailServiceTest
+ * @see SmtpEmailService
+ */
 @SpringBootTest
 class SmtpEmailServiceTest extends EmailServiceTest {
 

@@ -8,6 +8,13 @@ import javax.mail.internet.InternetAddress;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * This tests prove that, it is not possible to know whether an email address is real or not,
+ * cannot be known before sending an email.
+ *
+ * @author skmitra
+ * @version 1
+ */
 class EmailValidationTest {
 
     @Test
