@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS email_otp (
 
 CREATE TABLE IF NOT EXISTS otp_state_details (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	otp_uuid VARCHAR(36),
+	otp_uuid VARCHAR(36) UNIQUE NOT NULL,
 	current_state VARCHAR(10),
 	reason_phrase VARCHAR(50),
 	total_attempts INTEGER,

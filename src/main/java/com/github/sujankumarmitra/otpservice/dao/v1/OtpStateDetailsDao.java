@@ -1,5 +1,6 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
 import com.github.sujankumarmitra.otpservice.model.v1.Otp;
@@ -15,8 +16,9 @@ public interface OtpStateDetailsDao {
      * @param stateDetails new Otp StateDetails
      * @throws OtpStateDetailsAlreadyExistsException if an attempt is made to insert an {@link OtpStateDetails}
      *                                               with otpId which is already present in the collection
+     * @throws OtpNotFoundException                  if an attempt is made to insert an {@link OtpStateDetails} with dangling {@link OtpStateDetails#getOtpId()}
      */
-    void insertStateDetails(OtpStateDetails stateDetails) throws OtpStateDetailsAlreadyExistsException;
+    void insertStateDetails(OtpStateDetails stateDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException;
 
     /**
      * Fetches an {@link OtpStateDetails} from the collection.

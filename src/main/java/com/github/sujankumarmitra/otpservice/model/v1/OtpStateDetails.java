@@ -30,4 +30,24 @@ public interface OtpStateDetails {
      * @return total no of attempts made for otp-verification
      */
     long getTotalVerificationAttemptsMade();
+
+
+    /**
+     * Builder for constructing {@link OtpStateDetails}
+     *
+     * @param <T> type of {@link OtpStateDetails}
+     * @author skmitra
+     * @version 1
+     */
+    interface Builder<T extends OtpStateDetails> {
+        Builder<T> withOtpId(String otpId);
+
+        Builder<T> withCurrentState(OtpState currentState);
+
+        Builder<T> withCurrentStateReasonPhrase(String reasonPhrase);
+
+        Builder<T> withTotalVerificationAttemptsMade(long attempts);
+
+        T build() throws NullPointerException;
+    }
 }
