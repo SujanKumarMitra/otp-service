@@ -9,9 +9,18 @@ package com.github.sujankumarmitra.otpservice.configuration.v1;
  */
 public interface JdbcProperties {
 
+    /**
+     * @return the database connection url
+     */
     String getUrl();
 
+    /**
+     * @return the database user
+     */
     String getUsername();
 
+    /**
+     * @return the database password
+     */
     String getPassword();
 }
