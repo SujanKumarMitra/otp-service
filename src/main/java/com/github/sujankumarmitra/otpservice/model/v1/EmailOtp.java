@@ -10,7 +10,7 @@ public interface EmailOtp extends Otp {
      *
      * @return the email address
      */
-    String getEmailToBeSent();
+    String getEmailAddress();
 
     /**
      * Returns the message which is to be sent to the user.
@@ -18,5 +18,5 @@ public interface EmailOtp extends Otp {
      * @return the message to send or body of the email
      * @apiNote <b>The message is expected to contain the otp-code.</b>
      */
-    String getMessageToSend();
+    String getMessageBody();
 }

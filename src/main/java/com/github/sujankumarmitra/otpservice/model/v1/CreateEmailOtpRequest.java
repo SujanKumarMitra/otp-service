@@ -14,5 +14,5 @@ public interface CreateEmailOtpRequest extends CreateOtpRequest {
      *
      * @return email address
      */
-    String getEmailToBeSent();
+    String getEmailAddress();
 }
