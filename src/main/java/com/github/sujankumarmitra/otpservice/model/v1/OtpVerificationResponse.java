@@ -4,5 +4,9 @@ public interface OtpVerificationResponse {
 
     boolean isVerified();
 
-    long attemptsRemaining();
+    OtpStatus getStatus();
+
+    String getMessage();
+
+    long getAttemptsRemaining();
 }

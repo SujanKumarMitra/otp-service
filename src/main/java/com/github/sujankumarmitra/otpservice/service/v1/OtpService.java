@@ -39,5 +39,5 @@ public interface OtpService<T extends CreateOtpRequest> {
      * @throws OtpNotFoundException if otpId supplied does not exist
      * @see Otp#getId()
      */
-    OtpStateDetails getCurrentOtpState(String otpId) throws OtpNotFoundException;
+    OtpStatusDetails getCurrentOtpStatus(String otpId) throws OtpNotFoundException;
 }

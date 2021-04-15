@@ -2,7 +2,7 @@ package com.github.sujankumarmitra.otpservice.configuration.v1;
 
 import com.github.sujankumarmitra.otpservice.model.v1.Otp;
 import com.github.sujankumarmitra.otpservice.model.v1.CreateOtpRequest;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpState;
+import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
 
 /**
  * This interface represents the configuration properties related to otp
@@ -36,10 +36,10 @@ public interface OtpProperties {
 
     /**
      * Represents a total no of attempts allowed on an otp for verification
-     * before it becomes {@link OtpState#INVALID}
+     * before it becomes {@link OtpStatus#INVALID}
      *
      * @return total allowed attempts allowed
-     * @see OtpState
+     * @see OtpStatus
      */
     long getTotalAllowedAttempts();
 }

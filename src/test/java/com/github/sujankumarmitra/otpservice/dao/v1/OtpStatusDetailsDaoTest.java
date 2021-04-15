@@ -3,9 +3,9 @@ package com.github.sujankumarmitra.otpservice.dao.v1;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
-import com.github.sujankumarmitra.otpservice.model.v1.BasicOtpStateDetails;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpState;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpStateDetails;
+import com.github.sujankumarmitra.otpservice.model.v1.BasicOtpStatusDetails;
+import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
+import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1
  * @see OtpStateDetailsDao
  */
-abstract class OtpStateDetailsDaoTest {
+abstract class OtpStatusDetailsDaoTest {
 
     protected OtpStateDetailsDao daoUnderTest;
     protected Logger logger;
@@ -39,67 +39,67 @@ abstract class OtpStateDetailsDaoTest {
     @Test
     void givenValidOtpStateDetails_whenInserted_shouldInsertOtpStateDetails() {
 
-        OtpStateDetails otpStateDetails = BasicOtpStateDetails.newBuilder()
+        OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(VALID_OTP_ID)
-                .withCurrentState(OtpState.NEW)
+                .withCurrentStatus(OtpStatus.NEW)
                 .withCurrentStateReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
-        assertDoesNotThrow(() -> daoUnderTest.insertStateDetails(otpStateDetails));
+        assertDoesNotThrow(() -> daoUnderTest.insertStateDetails(otpStatusDetails));
     }
 
     @Test
     void givenInvalidOtpStateDetails_whenInserted_shouldThrowException() {
-        OtpStateDetails otpStateDetails = BasicOtpStateDetails.newBuilder()
+        OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(INVALID_OTP_ID)
-                .withCurrentState(OtpState.NEW)
+                .withCurrentStatus(OtpStatus.NEW)
                 .withCurrentStateReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
-        assertThrows(OtpNotFoundException.class, () -> daoUnderTest.insertStateDetails(otpStateDetails));
+        assertThrows(OtpNotFoundException.class, () -> daoUnderTest.insertStateDetails(otpStatusDetails));
     }
 
     @Test
     void givenOtpStateDetailsWithExistingOtpId_whenInserted_shouldThrowException() {
-        OtpStateDetails otpStateDetails = BasicOtpStateDetails.newBuilder()
+        OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(EXISTING_OTP_ID)
-                .withCurrentState(OtpState.NEW)
+                .withCurrentStatus(OtpStatus.NEW)
                 .withCurrentStateReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
 
-        assertThrows(OtpStateDetailsAlreadyExistsException.class, () -> daoUnderTest.insertStateDetails(otpStateDetails));
+        assertThrows(OtpStateDetailsAlreadyExistsException.class, () -> daoUnderTest.insertStateDetails(otpStatusDetails));
     }
 
     @Test
     void givenValidOtpId_whenFetched_shouldFetchOtpStateDetails() {
-        Optional<OtpStateDetails> otpStateDetails = daoUnderTest.getStateDetails(EXISTING_OTP_ID);
+        Optional<OtpStatusDetails> otpStateDetails = daoUnderTest.getStateDetails(EXISTING_OTP_ID);
         assertTrue(otpStateDetails.isPresent());
 
-        String actualOtpId = otpStateDetails.map(OtpStateDetails::getOtpId).get();
+        String actualOtpId = otpStateDetails.map(OtpStatusDetails::getOtpId).get();
         assertEquals(EXISTING_OTP_ID, actualOtpId);
     }
 
     @Test
     void givenValidOtpStateDetails_whenUpdated_shouldUpdateOtpStateDetails() {
-        OtpStateDetails otpStateDetails = BasicOtpStateDetails.newBuilder()
+        OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(EXISTING_OTP_ID)
-                .withCurrentState(OtpState.PROCESSING)
+                .withCurrentStatus(OtpStatus.PROCESSING)
                 .withCurrentStateReasonPhrase("JUST UPDATED")
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
-        assertDoesNotThrow(() -> daoUnderTest.updateStateDetails(otpStateDetails));
+        assertDoesNotThrow(() -> daoUnderTest.updateStateDetails(otpStatusDetails));
     }
 
     @Test
     void givenInvalidOtpStateDetails_whenUpdated_shouldThrowException() {
-        OtpStateDetails otpStateDetails = BasicOtpStateDetails.newBuilder()
+        OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(INVALID_OTP_ID)
-                .withCurrentState(OtpState.PROCESSING)
+                .withCurrentStatus(OtpStatus.PROCESSING)
                 .withCurrentStateReasonPhrase("JUST UPDATED")
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
         assertThrows(OtpStateDetailsNotFoundException.class,
-                () -> daoUnderTest.updateStateDetails(otpStateDetails));
+                () -> daoUnderTest.updateStateDetails(otpStatusDetails));
     }
 }

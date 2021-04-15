@@ -22,7 +22,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
  * @see JdbcOtpStateDetailsDao
  */
 @SpringBootTest
-class JdbcOtpStateDetailsDaoTest extends OtpStateDetailsDaoTest {
+class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
 
     @Autowired
     JdbcOtpStateDetailsDao stateDetailsDao;

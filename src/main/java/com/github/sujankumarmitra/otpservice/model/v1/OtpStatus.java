@@ -15,7 +15,7 @@ package com.github.sujankumarmitra.otpservice.model.v1;
  *     {@link #WAITING_FOR_VERIFICATION} to {@link #INVALID}
  * </ul>
  */
-public enum OtpState {
+public enum OtpStatus {
     /**
      * {@link CreateOtpRequest} is accepted.
      */
@@ -47,7 +47,7 @@ public enum OtpState {
 
     private final String state;
 
-    OtpState(String state) {
+    OtpStatus(String state) {
         this.state = state;
     }
 

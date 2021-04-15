@@ -3,8 +3,8 @@ package com.github.sujankumarmitra.otpservice.dao.v1;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpState;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpStateDetails;
+import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
+import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
 import com.github.sujankumarmitra.otpservice.util.v1.OtpStateDetailsResultSetExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,12 +39,12 @@ public class JdbcOtpStateDetailsDao implements OtpStateDetailsDao {
     }
 
     @Override
-    public void insertStateDetails(OtpStateDetails stateDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException {
+    public void insertStateDetails(OtpStatusDetails stateDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException {
         try {
             jdbcTemplate.update(INSERT_STATEMENT,
                     null,
                     stateDetails.getOtpId(),
-                    stateDetails.getCurrentState().getState(),
+                    stateDetails.getCurrentStatus().getState(),
                     stateDetails.getCurrentStateReasonPhrase(),
                     stateDetails.getTotalVerificationAttemptsMade()
             );
@@ -58,15 +58,15 @@ public class JdbcOtpStateDetailsDao implements OtpStateDetailsDao {
     }
 
     @Override
-    public Optional<OtpStateDetails> getStateDetails(String otpId) {
-        OtpStateDetails otpStateDetails = jdbcTemplate.query(SELECT_STATEMENT, resultSetExtractor, otpId);
-        return Optional.ofNullable(otpStateDetails);
+    public Optional<OtpStatusDetails> getStateDetails(String otpId) {
+        OtpStatusDetails otpStatusDetails = jdbcTemplate.query(SELECT_STATEMENT, resultSetExtractor, otpId);
+        return Optional.ofNullable(otpStatusDetails);
     }
 
     @Override
-    public void updateStateDetails(OtpStateDetails stateDetails) throws OtpStateDetailsNotFoundException {
+    public void updateStateDetails(OtpStatusDetails stateDetails) throws OtpStateDetailsNotFoundException {
         int rowsUpdated = jdbcTemplate.update(UPDATE_ALL_STATEMENT,
-                stateDetails.getCurrentState().getState(),
+                stateDetails.getCurrentStatus().getState(),
                 stateDetails.getCurrentStateReasonPhrase(),
                 stateDetails.getTotalVerificationAttemptsMade(),
                 stateDetails.getOtpId());
@@ -89,7 +89,7 @@ public class JdbcOtpStateDetailsDao implements OtpStateDetailsDao {
     }
 
     @Override
-    public void setState(String otpId, OtpState newState, String reasonPhrase) throws OtpStateDetailsNotFoundException{
+    public void setState(String otpId, OtpStatus newState, String reasonPhrase) throws OtpStateDetailsNotFoundException{
         int rowsUpdated = jdbcTemplate.update(
                 UPDATE_STATE_STATEMENT,
                 newState.getState(),

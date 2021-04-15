@@ -5,9 +5,9 @@ package com.github.sujankumarmitra.otpservice.model.v1;
  *
  * @author skmitra
  * @version 1
- * @see OtpState
+ * @see OtpStatus
  */
-public interface OtpStateDetails {
+public interface OtpStatusDetails {
 
     /**
      * @return the otpId associated with this state
@@ -16,12 +16,12 @@ public interface OtpStateDetails {
     String getOtpId();
 
     /**
-     * @return state enum
+     * @return status enum
      */
-    OtpState getCurrentState();
+    OtpStatus getCurrentStatus();
 
     /**
-     * @return the reason for which the {@link #getCurrentState()} is currently at.
+     * @return the reason for which the {@link #getCurrentStatus()} is currently at.
      */
     String getCurrentStateReasonPhrase();
 
@@ -33,16 +33,16 @@ public interface OtpStateDetails {
 
 
     /**
-     * Builder for constructing {@link OtpStateDetails}
+     * Builder for constructing {@link OtpStatusDetails}
      *
-     * @param <T> type of {@link OtpStateDetails}
+     * @param <T> type of {@link OtpStatusDetails}
      * @author skmitra
      * @version 1
      */
-    interface Builder<T extends OtpStateDetails> {
+    interface Builder<T extends OtpStatusDetails> {
         Builder<T> withOtpId(String otpId);
 
-        Builder<T> withCurrentState(OtpState currentState);
+        Builder<T> withCurrentStatus(OtpStatus currentStatus);
 
         Builder<T> withCurrentStateReasonPhrase(String reasonPhrase);
 

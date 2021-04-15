@@ -6,17 +6,17 @@ import java.util.Objects;
  * @author skmitra
  * @version 1
  */
-public class BasicOtpStateDetails implements OtpStateDetails {
+public class BasicOtpStatusDetails implements OtpStatusDetails {
 
     private final String otpId;
-    private final OtpState currentState;
+    private final OtpStatus currentState;
     private final String currentStateReasonPhrase;
     private final long totalVerificationAttemptsMade;
 
-    public BasicOtpStateDetails(String otpId,
-                                OtpState currentState,
-                                String currentStateReasonPhrase,
-                                long totalVerificationAttemptsMade) throws NullPointerException {
+    public BasicOtpStatusDetails(String otpId,
+                                 OtpStatus currentState,
+                                 String currentStateReasonPhrase,
+                                 long totalVerificationAttemptsMade) throws NullPointerException {
         Objects.requireNonNull(otpId);
         Objects.requireNonNull(currentState);
         Objects.requireNonNull(currentStateReasonPhrase);
@@ -33,7 +33,7 @@ public class BasicOtpStateDetails implements OtpStateDetails {
     }
 
     @Override
-    public OtpState getCurrentState() {
+    public OtpStatus getCurrentStatus() {
         return currentState;
     }
 
@@ -47,44 +47,44 @@ public class BasicOtpStateDetails implements OtpStateDetails {
         return totalVerificationAttemptsMade;
     }
 
-    public static OtpStateDetails.Builder<OtpStateDetails> newBuilder() {
+    public static OtpStatusDetails.Builder<OtpStatusDetails> newBuilder() {
         return new BasicOtpStateDetailsBuilder();
     }
 
-    public static class BasicOtpStateDetailsBuilder implements OtpStateDetails.Builder<OtpStateDetails> {
+    public static class BasicOtpStateDetailsBuilder implements OtpStatusDetails.Builder<OtpStatusDetails> {
         private String otpId;
-        private OtpState currentState;
+        private OtpStatus currentState;
         private String currentStateReasonPhrase;
         private long totalVerificationAttemptsMade;
 
 
         @Override
-        public Builder<OtpStateDetails> withOtpId(String otpId) {
+        public Builder<OtpStatusDetails> withOtpId(String otpId) {
             this.otpId = otpId;
             return this;
         }
 
         @Override
-        public Builder<OtpStateDetails> withCurrentState(OtpState currentState) {
-            this.currentState = currentState;
+        public Builder<OtpStatusDetails> withCurrentStatus(OtpStatus currentStatus) {
+            this.currentState = currentStatus;
             return this;
         }
 
         @Override
-        public Builder<OtpStateDetails> withCurrentStateReasonPhrase(String reasonPhrase) {
+        public Builder<OtpStatusDetails> withCurrentStateReasonPhrase(String reasonPhrase) {
             currentStateReasonPhrase = reasonPhrase;
             return this;
         }
 
         @Override
-        public Builder<OtpStateDetails> withTotalVerificationAttemptsMade(long attempts) {
+        public Builder<OtpStatusDetails> withTotalVerificationAttemptsMade(long attempts) {
             totalVerificationAttemptsMade = attempts;
             return this;
         }
 
         @Override
-        public OtpStateDetails build() throws NullPointerException {
-            return new BasicOtpStateDetails(
+        public OtpStatusDetails build() throws NullPointerException {
+            return new BasicOtpStatusDetails(
                     otpId,
                     currentState,
                     currentStateReasonPhrase,
