@@ -1,6 +1,6 @@
 package com.github.sujankumarmitra.otpservice.util.v1;
 
-import com.github.sujankumarmitra.otpservice.dao.v1.JdbcOtpStateDetailsDao;
+import com.github.sujankumarmitra.otpservice.dao.v1.JdbcOtpStatusDetailsDao;
 import com.github.sujankumarmitra.otpservice.model.v1.BasicOtpStatusDetails;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
  *
  * @author skmitra
  * @version 1
- * @see JdbcOtpStateDetailsDao#getStateDetails(String)
+ * @see JdbcOtpStatusDetailsDao#getStatusDetails(String)
  */
 @Component
 public class OtpStateDetailsResultSetExtractor implements ResultSetExtractor<OtpStatusDetails> {

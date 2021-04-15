@@ -16,17 +16,17 @@ import java.util.Optional;
  * @version 1
  * @see OtpStatusDetails
  */
-public interface OtpStateDetailsDao {
+public interface OtpStatusDetailsDao {
 
     /**
      * Inserts a new {@link OtpStatusDetails} in the collection
      *
-     * @param stateDetails new Otp StateDetails
+     * @param statusDetails new Otp StateDetails
      * @throws OtpStateDetailsAlreadyExistsException if an attempt is made to insert an {@link OtpStatusDetails}
      *                                               with otpId which is already present in the collection
      * @throws OtpNotFoundException                  if an attempt is made to insert an {@link OtpStatusDetails} with dangling {@link OtpStatusDetails#getOtpId()}
      */
-    void insertStateDetails(OtpStatusDetails stateDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException;
+    void insertStatusDetails(OtpStatusDetails statusDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException;
 
     /**
      * Fetches an {@link OtpStatusDetails} from the collection.
@@ -37,16 +37,16 @@ public interface OtpStateDetailsDao {
      * @return an instance of {@link Optional} with the possibility of containing {@link OtpStatusDetails}
      * @apiNote {@link Optional} may be empty, but never null
      */
-    Optional<OtpStatusDetails> getStateDetails(String otpId);
+    Optional<OtpStatusDetails> getStatusDetails(String otpId);
 
     /**
      * Updates an existing {@link OtpStatusDetails}.
      * The {@link OtpStatusDetails#getOtpId()} is used to search the existing details in the collection.
      *
-     * @param stateDetails the stateDetails with updated value
+     * @param statusDetails the statusDetails with updated value
      * @throws OtpStateDetailsNotFoundException if no {@link OtpStatusDetails} is found with {@link OtpStatusDetails#getOtpId()}
      */
-    void updateStateDetails(OtpStatusDetails stateDetails) throws OtpStateDetailsNotFoundException;
+    void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStateDetailsNotFoundException;
 
     /**
      * Updates the {@link OtpStatusDetails#getTotalVerificationAttemptsMade()} for an Otp
@@ -60,8 +60,8 @@ public interface OtpStateDetailsDao {
      * Updates the {@link OtpStatusDetails} current state
      *
      * @param otpId        the id of the otp
-     * @param newState     new state
+     * @param newStatus     new status
      * @param reasonPhrase reason for state change
      */
-    void setState(String otpId, OtpStatus newState, String reasonPhrase) throws OtpStateDetailsNotFoundException;
+    void setStatus(String otpId, OtpStatus newStatus, String reasonPhrase) throws OtpStateDetailsNotFoundException;
 }

@@ -15,15 +15,15 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This class contains test related to functionality of {@link OtpStateDetailsDao}
+ * This class contains test related to functionality of {@link OtpStatusDetailsDao}
  *
  * @author skmitra
  * @version 1
- * @see OtpStateDetailsDao
+ * @see OtpStatusDetailsDao
  */
 abstract class OtpStatusDetailsDaoTest {
 
-    protected OtpStateDetailsDao daoUnderTest;
+    protected OtpStatusDetailsDao daoUnderTest;
     protected Logger logger;
 
     protected static final String VALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb892";
@@ -45,7 +45,7 @@ abstract class OtpStatusDetailsDaoTest {
                 .withCurrentStateReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
-        assertDoesNotThrow(() -> daoUnderTest.insertStateDetails(otpStatusDetails));
+        assertDoesNotThrow(() -> daoUnderTest.insertStatusDetails(otpStatusDetails));
     }
 
     @Test
@@ -56,7 +56,7 @@ abstract class OtpStatusDetailsDaoTest {
                 .withCurrentStateReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
-        assertThrows(OtpNotFoundException.class, () -> daoUnderTest.insertStateDetails(otpStatusDetails));
+        assertThrows(OtpNotFoundException.class, () -> daoUnderTest.insertStatusDetails(otpStatusDetails));
     }
 
     @Test
@@ -68,12 +68,12 @@ abstract class OtpStatusDetailsDaoTest {
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
 
-        assertThrows(OtpStateDetailsAlreadyExistsException.class, () -> daoUnderTest.insertStateDetails(otpStatusDetails));
+        assertThrows(OtpStateDetailsAlreadyExistsException.class, () -> daoUnderTest.insertStatusDetails(otpStatusDetails));
     }
 
     @Test
     void givenValidOtpId_whenFetched_shouldFetchOtpStateDetails() {
-        Optional<OtpStatusDetails> otpStateDetails = daoUnderTest.getStateDetails(EXISTING_OTP_ID);
+        Optional<OtpStatusDetails> otpStateDetails = daoUnderTest.getStatusDetails(EXISTING_OTP_ID);
         assertTrue(otpStateDetails.isPresent());
 
         String actualOtpId = otpStateDetails.map(OtpStatusDetails::getOtpId).get();
@@ -88,7 +88,7 @@ abstract class OtpStatusDetailsDaoTest {
                 .withCurrentStateReasonPhrase("JUST UPDATED")
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
-        assertDoesNotThrow(() -> daoUnderTest.updateStateDetails(otpStatusDetails));
+        assertDoesNotThrow(() -> daoUnderTest.updateStatusDetails(otpStatusDetails));
     }
 
     @Test
@@ -100,6 +100,6 @@ abstract class OtpStatusDetailsDaoTest {
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
         assertThrows(OtpStateDetailsNotFoundException.class,
-                () -> daoUnderTest.updateStateDetails(otpStatusDetails));
+                () -> daoUnderTest.updateStatusDetails(otpStatusDetails));
     }
 }

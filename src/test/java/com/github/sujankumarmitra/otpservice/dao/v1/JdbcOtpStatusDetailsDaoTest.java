@@ -15,17 +15,17 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
 /**
  * {@inheritDoc}
  * <p>
- * Tests for {@link JdbcOtpStateDetailsDao}
+ * Tests for {@link JdbcOtpStatusDetailsDao}
  *
  * @author skmitra
  * @version 1
- * @see JdbcOtpStateDetailsDao
+ * @see JdbcOtpStatusDetailsDao
  */
 @SpringBootTest
 class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
 
     @Autowired
-    JdbcOtpStateDetailsDao stateDetailsDao;
+    JdbcOtpStatusDetailsDao stateDetailsDao;
 
     @Override
     @BeforeEach

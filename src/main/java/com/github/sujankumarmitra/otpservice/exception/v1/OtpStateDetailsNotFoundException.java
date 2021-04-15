@@ -1,6 +1,6 @@
 package com.github.sujankumarmitra.otpservice.exception.v1;
 
-import com.github.sujankumarmitra.otpservice.dao.v1.OtpStateDetailsDao;
+import com.github.sujankumarmitra.otpservice.dao.v1.OtpStatusDetailsDao;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
 
 /**
@@ -8,7 +8,7 @@ import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
  *
  * @author skmitra
  * @version 1
- * @see OtpStateDetailsDao#updateStateDetails(OtpStatusDetails)
+ * @see OtpStatusDetailsDao#updateStatusDetails(OtpStatusDetails)
  */
 public class OtpStateDetailsNotFoundException extends RuntimeException {
     public OtpStateDetailsNotFoundException(String otpId) {
