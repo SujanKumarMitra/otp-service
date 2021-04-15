@@ -1,8 +1,8 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
-import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
-import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsAlreadyExistsException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsNotFoundException;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
 import com.github.sujankumarmitra.otpservice.util.v1.OtpStateDetailsResultSetExtractor;
@@ -39,7 +39,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
     }
 
     @Override
-    public void insertStatusDetails(OtpStatusDetails statusDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException {
+    public void insertStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsAlreadyExistsException, OtpNotFoundException {
         try {
             jdbcTemplate.update(INSERT_STATEMENT,
                     null,
@@ -50,7 +50,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
             );
         } catch (DuplicateKeyException e) {
 //            otp already exists in db
-            throw new OtpStateDetailsAlreadyExistsException(statusDetails.getOtpId());
+            throw new OtpStatusDetailsAlreadyExistsException(statusDetails.getOtpId());
         } catch (DataIntegrityViolationException e) {
 //            otpId not present in db (foreign key violation)
             throw new OtpNotFoundException(statusDetails.getOtpId());
@@ -64,7 +64,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
     }
 
     @Override
-    public void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStateDetailsNotFoundException {
+    public void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsNotFoundException {
         int rowsUpdated = jdbcTemplate.update(UPDATE_ALL_STATEMENT,
                 statusDetails.getCurrentStatus().getState(),
                 statusDetails.getCurrentStateReasonPhrase(),
@@ -72,24 +72,24 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
                 statusDetails.getOtpId());
         if(rowsUpdated == 0) {
 //           no OtpStateDetails available with otpId
-            throw new OtpStateDetailsNotFoundException(statusDetails.getOtpId());
+            throw new OtpStatusDetailsNotFoundException(statusDetails.getOtpId());
         }
     }
 
     @Override
-    public void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStateDetailsNotFoundException{
+    public void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStatusDetailsNotFoundException {
         int rowsUpdated = jdbcTemplate.update(
                 UPDATE_ATTEMPTS_STATEMENT,
                 attemptsMade,
                 otpId);
         if(rowsUpdated == 0) {
 //           no OtpStateDetails available with otpId
-            throw new OtpStateDetailsNotFoundException(otpId);
+            throw new OtpStatusDetailsNotFoundException(otpId);
         }
     }
 
     @Override
-    public void setStatus(String otpId, OtpStatus newStatus, String reasonPhrase) throws OtpStateDetailsNotFoundException{
+    public void setStatus(String otpId, OtpStatus newStatus, String reasonPhrase) throws OtpStatusDetailsNotFoundException {
         int rowsUpdated = jdbcTemplate.update(
                 UPDATE_STATE_STATEMENT,
                 newStatus.getState(),
@@ -97,7 +97,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
                 otpId);
         if(rowsUpdated == 0) {
 //           no OtpStateDetails available with otpId
-            throw new OtpStateDetailsNotFoundException(otpId);
+            throw new OtpStatusDetailsNotFoundException(otpId);
         }
     }
 }

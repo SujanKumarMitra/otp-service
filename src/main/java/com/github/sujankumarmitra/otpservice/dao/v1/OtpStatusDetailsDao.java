@@ -1,8 +1,8 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
-import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
-import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsAlreadyExistsException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsNotFoundException;
 import com.github.sujankumarmitra.otpservice.model.v1.Otp;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
@@ -22,11 +22,11 @@ public interface OtpStatusDetailsDao {
      * Inserts a new {@link OtpStatusDetails} in the collection
      *
      * @param statusDetails new Otp StateDetails
-     * @throws OtpStateDetailsAlreadyExistsException if an attempt is made to insert an {@link OtpStatusDetails}
+     * @throws OtpStatusDetailsAlreadyExistsException if an attempt is made to insert an {@link OtpStatusDetails}
      *                                               with otpId which is already present in the collection
      * @throws OtpNotFoundException                  if an attempt is made to insert an {@link OtpStatusDetails} with dangling {@link OtpStatusDetails#getOtpId()}
      */
-    void insertStatusDetails(OtpStatusDetails statusDetails) throws OtpStateDetailsAlreadyExistsException, OtpNotFoundException;
+    void insertStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsAlreadyExistsException, OtpNotFoundException;
 
     /**
      * Fetches an {@link OtpStatusDetails} from the collection.
@@ -44,9 +44,9 @@ public interface OtpStatusDetailsDao {
      * The {@link OtpStatusDetails#getOtpId()} is used to search the existing details in the collection.
      *
      * @param statusDetails the statusDetails with updated value
-     * @throws OtpStateDetailsNotFoundException if no {@link OtpStatusDetails} is found with {@link OtpStatusDetails#getOtpId()}
+     * @throws OtpStatusDetailsNotFoundException if no {@link OtpStatusDetails} is found with {@link OtpStatusDetails#getOtpId()}
      */
-    void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStateDetailsNotFoundException;
+    void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsNotFoundException;
 
     /**
      * Updates the {@link OtpStatusDetails#getTotalVerificationAttemptsMade()} for an Otp
@@ -54,7 +54,7 @@ public interface OtpStatusDetailsDao {
      * @param otpId        the id of the Otp
      * @param attemptsMade total attempts made
      */
-    void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStateDetailsNotFoundException;
+    void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStatusDetailsNotFoundException;
 
     /**
      * Updates the {@link OtpStatusDetails} current state
@@ -63,5 +63,5 @@ public interface OtpStatusDetailsDao {
      * @param newStatus     new status
      * @param reasonPhrase reason for state change
      */
-    void setStatus(String otpId, OtpStatus newStatus, String reasonPhrase) throws OtpStateDetailsNotFoundException;
+    void setStatus(String otpId, OtpStatus newStatus, String reasonPhrase) throws OtpStatusDetailsNotFoundException;
 }

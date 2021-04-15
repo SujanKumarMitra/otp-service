@@ -9,5 +9,5 @@ import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
  * @version 1
  * @see OtpStatus
  */
-public class InvalidOtpStateTransitionException extends RuntimeException {
+public class InvalidOtpStatusTransitionException extends RuntimeException {
 }

@@ -10,8 +10,8 @@ import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
  * @version 1
  * @see OtpStatusDetailsDao#updateStatusDetails(OtpStatusDetails)
  */
-public class OtpStateDetailsNotFoundException extends RuntimeException {
-    public OtpStateDetailsNotFoundException(String otpId) {
+public class OtpStatusDetailsNotFoundException extends RuntimeException {
+    public OtpStatusDetailsNotFoundException(String otpId) {
         super("OtpStateDetails for optId='" + otpId + "' not found");
     }
 

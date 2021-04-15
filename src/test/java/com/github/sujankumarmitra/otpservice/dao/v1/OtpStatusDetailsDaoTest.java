@@ -1,8 +1,8 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
-import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
-import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsAlreadyExistsException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsNotFoundException;
 import com.github.sujankumarmitra.otpservice.model.v1.BasicOtpStatusDetails;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
@@ -68,7 +68,7 @@ abstract class OtpStatusDetailsDaoTest {
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
 
-        assertThrows(OtpStateDetailsAlreadyExistsException.class, () -> daoUnderTest.insertStatusDetails(otpStatusDetails));
+        assertThrows(OtpStatusDetailsAlreadyExistsException.class, () -> daoUnderTest.insertStatusDetails(otpStatusDetails));
     }
 
     @Test
@@ -99,7 +99,7 @@ abstract class OtpStatusDetailsDaoTest {
                 .withCurrentStateReasonPhrase("JUST UPDATED")
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
-        assertThrows(OtpStateDetailsNotFoundException.class,
+        assertThrows(OtpStatusDetailsNotFoundException.class,
                 () -> daoUnderTest.updateStatusDetails(otpStatusDetails));
     }
 }

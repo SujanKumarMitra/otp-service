@@ -10,11 +10,11 @@ import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
  * @version 1
  * @see OtpStatusDetailsDao#insertStatusDetails(OtpStatusDetails)
  */
-public class OtpStateDetailsAlreadyExistsException extends RuntimeException {
+public class OtpStatusDetailsAlreadyExistsException extends RuntimeException {
     /**
      * @param otpId the id of the otp
      */
-    public OtpStateDetailsAlreadyExistsException(String otpId) {
+    public OtpStatusDetailsAlreadyExistsException(String otpId) {
         super("OtpStateDetails of otpId='" + otpId + "' already exists!");
     }
 }
