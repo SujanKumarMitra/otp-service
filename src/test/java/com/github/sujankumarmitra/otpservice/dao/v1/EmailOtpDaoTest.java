@@ -25,9 +25,9 @@ abstract class EmailOtpDaoTest {
     protected EmailOtpDao daoUnderTest;
     protected Logger logger;
 
-    protected final String VALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb892";
-    protected final String INVALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb893";
-    protected final String EXISTING_OTP_ID = "86746728-4796-4fc6-a976-3eb34af6a58d";
+    protected static final String VALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb892";
+    protected static final String INVALID_OTP_ID = "abf9b53a-9b6b-4911-9e44-97afd38cb893";
+    protected static final String EXISTING_OTP_ID = "86746728-4796-4fc6-a976-3eb34af6a58d";
 
     @BeforeEach
     void setUp() {

@@ -47,13 +47,9 @@ class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
     @Override
     @Test
     @SqlGroup({
-            @Sql(executionPhase = BEFORE_TEST_METHOD,
-                    scripts = {
-                            "classpath:/new-schema.sql",
-                            "classpath:/insert-existing-otp.sql"
-                    }),
-            @Sql(executionPhase = AFTER_TEST_METHOD,
-                    scripts = "classpath:/truncate-all.sql")
+            @Sql(scripts = "classpath:/new-schema.sql"),
+            @Sql(statements = "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!' )"),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
     void givenOtpWithExistingId_whenSaved_shouldThrowException() {
         super.givenOtpWithExistingId_whenSaved_shouldThrowException();
@@ -62,13 +58,9 @@ class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
     @Override
     @Test
     @SqlGroup({
-            @Sql(executionPhase = BEFORE_TEST_METHOD,
-                    scripts = {
-                            "classpath:/new-schema.sql",
-                            "classpath:/insert-valid-otp.sql"
-                    }),
-            @Sql(executionPhase = AFTER_TEST_METHOD,
-                    scripts = "classpath:/truncate-all.sql")
+            @Sql(scripts ="classpath:/new-schema.sql"),
+            @Sql(statements = "INSERT INTO email_otp VALUES (null,'" + VALID_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!' )"),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
     void givenValidOtpId_whenGetOtp_shouldFetchOtp() {
         super.givenValidOtpId_whenGetOtp_shouldFetchOtp();

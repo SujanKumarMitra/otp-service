@@ -3,6 +3,7 @@ package com.github.sujankumarmitra.otpservice.dao.v1;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsAlreadyExistsException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpStateDetailsNotFoundException;
+import com.github.sujankumarmitra.otpservice.model.v1.OtpState;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStateDetails;
 import com.github.sujankumarmitra.otpservice.util.v1.OtpStateDetailsResultSetExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class JdbcOtpStateDetailsDao implements OtpStateDetailsDao {
 
     private static final String INSERT_STATEMENT = "INSERT INTO otp_state_details VALUES(?,?,?,?,?)";
     private static final String SELECT_STATEMENT = "SELECT * FROM otp_state_details WHERE otp_uuid=?";
+    private static final String UPDATE_ALL_STATEMENT = "UPDATE otp_state_details SET current_state=?, reason_phrase=?, total_attempts=? WHERE otp_uuid=?";
+    private static final String UPDATE_ATTEMPTS_STATEMENT = "UPDATE otp_state_details SET total_attempts=? WHERE otp_uuid=?";
+    private static final String UPDATE_STATE_STATEMENT = "UPDATE otp_state_details SET current_state=?, reason_phrase=? WHERE otp_uuid=?";
 
     private JdbcTemplate jdbcTemplate;
     private OtpStateDetailsResultSetExtractor resultSetExtractor;
@@ -61,6 +65,39 @@ public class JdbcOtpStateDetailsDao implements OtpStateDetailsDao {
 
     @Override
     public void updateStateDetails(OtpStateDetails stateDetails) throws OtpStateDetailsNotFoundException {
-        throw new RuntimeException("not implemented yet!");
+        int rowsUpdated = jdbcTemplate.update(UPDATE_ALL_STATEMENT,
+                stateDetails.getCurrentState().getState(),
+                stateDetails.getCurrentStateReasonPhrase(),
+                stateDetails.getTotalVerificationAttemptsMade(),
+                stateDetails.getOtpId());
+        if(rowsUpdated == 0) {
+//           no OtpStateDetails available with otpId
+            throw new OtpStateDetailsNotFoundException(stateDetails.getOtpId());
+        }
+    }
+
+    @Override
+    public void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStateDetailsNotFoundException{
+        int rowsUpdated = jdbcTemplate.update(
+                UPDATE_ATTEMPTS_STATEMENT,
+                attemptsMade,
+                otpId);
+        if(rowsUpdated == 0) {
+//           no OtpStateDetails available with otpId
+            throw new OtpStateDetailsNotFoundException(otpId);
+        }
+    }
+
+    @Override
+    public void setState(String otpId, OtpState newState, String reasonPhrase) throws OtpStateDetailsNotFoundException{
+        int rowsUpdated = jdbcTemplate.update(
+                UPDATE_STATE_STATEMENT,
+                newState.getState(),
+                reasonPhrase,
+                otpId);
+        if(rowsUpdated == 0) {
+//           no OtpStateDetails available with otpId
+            throw new OtpStateDetailsNotFoundException(otpId);
+        }
     }
 }
