@@ -35,8 +35,6 @@ class BasicEmailOtpServiceTest extends EmailOtpServiceTest {
 
     @Autowired
     BasicEmailOtpService service;
-    @Autowired
-    OtpProperties properties;
 
     @MockBean
     OtpCodeGenerator codeGenerator;
