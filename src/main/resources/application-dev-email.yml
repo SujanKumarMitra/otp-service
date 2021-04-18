@@ -1,0 +1,3 @@
+email:
+  subject: "${EMAIL_SUBJECT: Otp Verification}"
+  email-subject: "${email.subject}"
