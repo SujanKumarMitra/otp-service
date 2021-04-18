@@ -1,6 +1,5 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
@@ -33,10 +32,6 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
         daoUnderTest = stateDetailsDao;
         logger = LoggerFactory.getLogger(getClass());
         super.setUp();
-    }
-
-    @AfterEach
-    void tearDown() {
     }
 
     @Override
@@ -115,4 +110,65 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
     }
 
 
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(scripts = "classpath:/new-schema.sql"),
+            @Sql(statements = {
+                    "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
+                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+            }),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
+    })
+    void givenValidOtpId_whenSetTotalVerificationAttemptsMade_shouldSetTotalVerificationAttemptsMade() {
+        super.givenValidOtpId_whenSetTotalVerificationAttemptsMade_shouldSetTotalVerificationAttemptsMade();
+    }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(scripts = "classpath:/new-schema.sql"),
+            @Sql(statements = {
+                    "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
+                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+            }),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
+    })
+    void givenValidOtpIdAndInvalidAttempts_whenSetTotalVerificationAttemptsMade_shouldThrowException() {
+        super.givenValidOtpIdAndInvalidAttempts_whenSetTotalVerificationAttemptsMade_shouldThrowException();
+    }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = {"classpath:/new-schema.sql"}),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = {"classpath:/truncate-all.sql"})
+    })
+    void givenInvalidOtpId_whenSetTotalVerificationAttemptsMade_shouldThrowException() {
+        super.givenInvalidOtpId_whenSetTotalVerificationAttemptsMade_shouldThrowException();
+    }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(scripts = "classpath:/new-schema.sql"),
+            @Sql(statements = {
+                    "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
+                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+            }),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
+    })
+    void givenValidOtpId_whenSetStatus_shouldSetStatus() {
+        super.givenValidOtpId_whenSetStatus_shouldSetStatus();
+    }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = {"classpath:/new-schema.sql"}),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = {"classpath:/truncate-all.sql"})
+    })
+    void givenInvalidOtpId_whenSetStatus_shouldSetStatus() {
+        super.givenInvalidOtpId_whenSetStatus_shouldSetStatus();
+    }
 }

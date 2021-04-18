@@ -75,4 +75,25 @@ class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
     void givenInvalidOtpId_whenGetOtp_shouldFetchOtp() {
         super.givenInvalidOtpId_whenGetOtp_shouldFetchOtp();
     }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(scripts ="classpath:/new-schema.sql"),
+            @Sql(statements = "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!' )"),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
+    })
+    void givenValidOtpId_whenSetCreatedAt_shouldSetCreatedAt() {
+        super.givenValidOtpId_whenSetCreatedAt_shouldSetCreatedAt();
+    }
+
+    @Override
+    @Test
+    @SqlGroup({
+            @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = "classpath:/new-schema.sql"),
+            @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
+    })
+    void givenInvalidOtpId_whenSetCreatedAt_shouldThrowException() {
+        super.givenInvalidOtpId_whenSetCreatedAt_shouldThrowException();
+    }
 }

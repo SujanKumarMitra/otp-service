@@ -1,6 +1,7 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpAlreadyExistsException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.model.v1.EmailOtp;
 import com.github.sujankumarmitra.otpservice.util.v1.EmailOtpResultSetExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.Optional;
 
 /**
@@ -20,6 +22,7 @@ public class JdbcEmailOtpDao implements EmailOtpDao {
 
     private static final String OTP_INSERT_STATEMENT = "INSERT INTO email_otp VALUES (?,?,?,?,?,?,?)";
     private static final String OTP_SELECT_STATEMENT = "SELECT * from email_otp WHERE uuid=?";
+    private static final String OTP_UPDATE_CREATED_AT_STATEMENT = "UPDATE email_otp SET created_at=? WHERE uuid=?";
 
     private JdbcTemplate jdbcTemplate;
     private EmailOtpResultSetExtractor otpResultSetExtractor;
@@ -53,4 +56,11 @@ public class JdbcEmailOtpDao implements EmailOtpDao {
         return Optional.ofNullable(emailOtp);
     }
 
+    @Override
+    public void setCreatedAt(String otpId, Instant createdAt) throws OtpNotFoundException {
+        int rowsUpdated = jdbcTemplate.update(
+                OTP_UPDATE_CREATED_AT_STATEMENT, createdAt.toEpochMilli(),otpId);
+        if (rowsUpdated == 0)
+            throw new OtpNotFoundException(otpId);
+    }
 }

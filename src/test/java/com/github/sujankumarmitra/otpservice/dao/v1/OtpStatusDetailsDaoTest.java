@@ -102,4 +102,39 @@ abstract class OtpStatusDetailsDaoTest {
         assertThrows(OtpStatusDetailsNotFoundException.class,
                 () -> daoUnderTest.updateStatusDetails(otpStatusDetails));
     }
+
+    @Test
+    void givenValidOtpId_whenSetTotalVerificationAttemptsMade_shouldSetTotalVerificationAttemptsMade() {
+        assertDoesNotThrow(() -> daoUnderTest.setTotalVerificationAttemptsMade(EXISTING_OTP_ID, 1));
+    }
+
+    @Test
+    void givenValidOtpIdAndInvalidAttempts_whenSetTotalVerificationAttemptsMade_shouldThrowException() {
+        assertThrows(IllegalArgumentException.class,
+                () -> daoUnderTest.setTotalVerificationAttemptsMade(EXISTING_OTP_ID, -1));
+    }
+
+    @Test
+    void givenInvalidOtpId_whenSetTotalVerificationAttemptsMade_shouldThrowException() {
+        assertThrows(OtpStatusDetailsNotFoundException.class,
+                () -> daoUnderTest.setTotalVerificationAttemptsMade(INVALID_OTP_ID, 1));
+    }
+
+    @Test
+    void givenValidOtpId_whenSetStatus_shouldSetStatus() {
+        assertDoesNotThrow(() -> daoUnderTest.setStatus(
+                        EXISTING_OTP_ID,
+                        OtpStatus.EXPIRED,
+                        "Expired"));
+    }
+
+    @Test
+    void givenInvalidOtpId_whenSetStatus_shouldSetStatus() {
+        assertThrows(OtpStatusDetailsNotFoundException.class,
+                () -> daoUnderTest.setStatus(
+                INVALID_OTP_ID,
+                OtpStatus.EXPIRED,
+                "Expired"));
+    }
+
 }

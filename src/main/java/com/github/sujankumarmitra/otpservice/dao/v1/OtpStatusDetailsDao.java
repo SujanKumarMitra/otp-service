@@ -53,8 +53,10 @@ public interface OtpStatusDetailsDao {
      *
      * @param otpId        the id of the Otp
      * @param attemptsMade total attempts made
+     * @throws OtpNotFoundException if no @{@link Otp} exists with otpId
+     * @throws IllegalArgumentException if attemptsMade is negative
      */
-    void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStatusDetailsNotFoundException;
+    void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStatusDetailsNotFoundException, IllegalArgumentException;
 
     /**
      * Updates the {@link OtpStatusDetails} current state

@@ -78,6 +78,8 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
 
     @Override
     public void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStatusDetailsNotFoundException {
+        if(attemptsMade < 0)
+            throw new IllegalArgumentException("attemptsMade can't be negative");
         int rowsUpdated = jdbcTemplate.update(
                 UPDATE_ATTEMPTS_STATEMENT,
                 attemptsMade,

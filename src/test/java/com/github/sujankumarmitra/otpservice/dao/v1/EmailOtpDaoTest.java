@@ -1,6 +1,7 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpAlreadyExistsException;
+import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.model.v1.BasicEmailOtp;
 import com.github.sujankumarmitra.otpservice.model.v1.EmailOtp;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
@@ -76,5 +78,16 @@ abstract class EmailOtpDaoTest {
     void givenInvalidOtpId_whenGetOtp_shouldFetchOtp() {
         Optional<EmailOtp> otp = daoUnderTest.getOtp(INVALID_OTP_ID);
         assertTrue(otp.isEmpty());
+    }
+
+    @Test
+    void givenValidOtpId_whenSetCreatedAt_shouldSetCreatedAt() {
+        assertDoesNotThrow(()-> daoUnderTest.setCreatedAt(EXISTING_OTP_ID, Instant.now()));
+    }
+
+    @Test
+    void givenInvalidOtpId_whenSetCreatedAt_shouldThrowException() {
+        assertThrows(OtpNotFoundException.class,
+                ()-> daoUnderTest.setCreatedAt(INVALID_OTP_ID, Instant.now()));
     }
 }
