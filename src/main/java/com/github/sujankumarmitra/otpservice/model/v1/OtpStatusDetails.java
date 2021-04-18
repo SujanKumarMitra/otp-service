@@ -23,7 +23,7 @@ public interface OtpStatusDetails {
     /**
      * @return the reason for which the {@link #getCurrentStatus()} is currently at.
      */
-    String getCurrentStateReasonPhrase();
+    String getCurrentStatusReasonPhrase();
 
 
     /**
@@ -44,7 +44,7 @@ public interface OtpStatusDetails {
 
         Builder<T> withCurrentStatus(OtpStatus currentStatus);
 
-        Builder<T> withCurrentStateReasonPhrase(String reasonPhrase);
+        Builder<T> withCurrentStatusReasonPhrase(String reasonPhrase);
 
         Builder<T> withTotalVerificationAttemptsMade(long attempts);
 

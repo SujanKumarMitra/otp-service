@@ -9,21 +9,21 @@ import java.util.Objects;
 public class BasicOtpStatusDetails implements OtpStatusDetails {
 
     private final String otpId;
-    private final OtpStatus currentState;
-    private final String currentStateReasonPhrase;
+    private final OtpStatus currentStatus;
+    private final String currentStatusReasonPhrase;
     private final long totalVerificationAttemptsMade;
 
     public BasicOtpStatusDetails(String otpId,
-                                 OtpStatus currentState,
-                                 String currentStateReasonPhrase,
+                                 OtpStatus currentStatus,
+                                 String currentStatusReasonPhrase,
                                  long totalVerificationAttemptsMade) throws NullPointerException {
         Objects.requireNonNull(otpId);
-        Objects.requireNonNull(currentState);
-        Objects.requireNonNull(currentStateReasonPhrase);
+        Objects.requireNonNull(currentStatus);
+        Objects.requireNonNull(currentStatusReasonPhrase);
 
         this.otpId = otpId;
-        this.currentState = currentState;
-        this.currentStateReasonPhrase = currentStateReasonPhrase;
+        this.currentStatus = currentStatus;
+        this.currentStatusReasonPhrase = currentStatusReasonPhrase;
         this.totalVerificationAttemptsMade = totalVerificationAttemptsMade;
     }
 
@@ -34,12 +34,12 @@ public class BasicOtpStatusDetails implements OtpStatusDetails {
 
     @Override
     public OtpStatus getCurrentStatus() {
-        return currentState;
+        return currentStatus;
     }
 
     @Override
-    public String getCurrentStateReasonPhrase() {
-        return currentStateReasonPhrase;
+    public String getCurrentStatusReasonPhrase() {
+        return currentStatusReasonPhrase;
     }
 
     @Override
@@ -53,8 +53,8 @@ public class BasicOtpStatusDetails implements OtpStatusDetails {
 
     public static class BasicOtpStateDetailsBuilder implements OtpStatusDetails.Builder<OtpStatusDetails> {
         private String otpId;
-        private OtpStatus currentState;
-        private String currentStateReasonPhrase;
+        private OtpStatus currentStatus;
+        private String currentStatusReasonPhrase;
         private long totalVerificationAttemptsMade;
 
 
@@ -66,13 +66,13 @@ public class BasicOtpStatusDetails implements OtpStatusDetails {
 
         @Override
         public Builder<OtpStatusDetails> withCurrentStatus(OtpStatus currentStatus) {
-            this.currentState = currentStatus;
+            this.currentStatus = currentStatus;
             return this;
         }
 
         @Override
-        public Builder<OtpStatusDetails> withCurrentStateReasonPhrase(String reasonPhrase) {
-            currentStateReasonPhrase = reasonPhrase;
+        public Builder<OtpStatusDetails> withCurrentStatusReasonPhrase(String reasonPhrase) {
+            currentStatusReasonPhrase = reasonPhrase;
             return this;
         }
 
@@ -86,8 +86,8 @@ public class BasicOtpStatusDetails implements OtpStatusDetails {
         public OtpStatusDetails build() throws NullPointerException {
             return new BasicOtpStatusDetails(
                     otpId,
-                    currentState,
-                    currentStateReasonPhrase,
+                    currentStatus,
+                    currentStatusReasonPhrase,
                     totalVerificationAttemptsMade
             );
         }

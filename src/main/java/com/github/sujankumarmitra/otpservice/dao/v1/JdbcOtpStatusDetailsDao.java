@@ -45,7 +45,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
                     null,
                     statusDetails.getOtpId(),
                     statusDetails.getCurrentStatus().getState(),
-                    statusDetails.getCurrentStateReasonPhrase(),
+                    statusDetails.getCurrentStatusReasonPhrase(),
                     statusDetails.getTotalVerificationAttemptsMade()
             );
         } catch (DuplicateKeyException e) {
@@ -67,7 +67,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
     public void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsNotFoundException {
         int rowsUpdated = jdbcTemplate.update(UPDATE_ALL_STATEMENT,
                 statusDetails.getCurrentStatus().getState(),
-                statusDetails.getCurrentStateReasonPhrase(),
+                statusDetails.getCurrentStatusReasonPhrase(),
                 statusDetails.getTotalVerificationAttemptsMade(),
                 statusDetails.getOtpId());
         if(rowsUpdated == 0) {

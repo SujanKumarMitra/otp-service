@@ -42,7 +42,7 @@ abstract class OtpStatusDetailsDaoTest {
         OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(VALID_OTP_ID)
                 .withCurrentStatus(OtpStatus.NEW)
-                .withCurrentStateReasonPhrase("JUST CREATED")
+                .withCurrentStatusReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
         assertDoesNotThrow(() -> daoUnderTest.insertStatusDetails(otpStatusDetails));
@@ -53,7 +53,7 @@ abstract class OtpStatusDetailsDaoTest {
         OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(INVALID_OTP_ID)
                 .withCurrentStatus(OtpStatus.NEW)
-                .withCurrentStateReasonPhrase("JUST CREATED")
+                .withCurrentStatusReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
         assertThrows(OtpNotFoundException.class, () -> daoUnderTest.insertStatusDetails(otpStatusDetails));
@@ -64,7 +64,7 @@ abstract class OtpStatusDetailsDaoTest {
         OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(EXISTING_OTP_ID)
                 .withCurrentStatus(OtpStatus.NEW)
-                .withCurrentStateReasonPhrase("JUST CREATED")
+                .withCurrentStatusReasonPhrase("JUST CREATED")
                 .withTotalVerificationAttemptsMade(0L)
                 .build();
 
@@ -85,7 +85,7 @@ abstract class OtpStatusDetailsDaoTest {
         OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(EXISTING_OTP_ID)
                 .withCurrentStatus(OtpStatus.PROCESSING)
-                .withCurrentStateReasonPhrase("JUST UPDATED")
+                .withCurrentStatusReasonPhrase("JUST UPDATED")
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
         assertDoesNotThrow(() -> daoUnderTest.updateStatusDetails(otpStatusDetails));
@@ -96,7 +96,7 @@ abstract class OtpStatusDetailsDaoTest {
         OtpStatusDetails otpStatusDetails = BasicOtpStatusDetails.newBuilder()
                 .withOtpId(INVALID_OTP_ID)
                 .withCurrentStatus(OtpStatus.PROCESSING)
-                .withCurrentStateReasonPhrase("JUST UPDATED")
+                .withCurrentStatusReasonPhrase("JUST UPDATED")
                 .withTotalVerificationAttemptsMade(1L)
                 .build();
         assertThrows(OtpStatusDetailsNotFoundException.class,
