@@ -14,7 +14,7 @@ CREATE TABLE email_otp (
 CREATE TABLE otp_state_details (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	otp_uuid VARCHAR(36) UNIQUE NOT NULL,
-	current_state VARCHAR(10),
+	current_status VARCHAR(10),
 	reason_phrase VARCHAR(50),
 	total_attempts INTEGER,
 	FOREIGN KEY(otp_uuid) REFERENCES email_otp(uuid)

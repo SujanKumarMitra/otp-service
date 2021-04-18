@@ -31,7 +31,7 @@ public class OtpStateDetailsResultSetExtractor implements ResultSetExtractor<Otp
 
         return BasicOtpStatusDetails.newBuilder()
                 .withOtpId(rs.getString("otp_uuid"))
-                .withCurrentStatus(OtpStatus.valueOf(rs.getString("current_state")))
+                .withCurrentStatus(OtpStatus.valueOf(rs.getString("current_status")))
                 .withCurrentStatusReasonPhrase(rs.getString("reason_phrase"))
                 .withTotalVerificationAttemptsMade(rs.getLong("total_attempts"))
                 .build();
