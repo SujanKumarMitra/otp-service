@@ -5,5 +5,7 @@ spring:
     active: "dev"
     group:
       dev:
-        - "dev-mail"
+        - "dev-smtp"
         - "dev-db"
+        - "dev-otp"
+        - "dev-email"

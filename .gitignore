@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-src/test/resources/application-dev-mail.yml
+src/test/resources/application-dev-smtp.yml
