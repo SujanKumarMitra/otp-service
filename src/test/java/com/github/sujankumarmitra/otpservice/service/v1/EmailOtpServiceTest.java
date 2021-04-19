@@ -1,14 +1,12 @@
 package com.github.sujankumarmitra.otpservice.service.v1;
 
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
-import com.github.sujankumarmitra.otpservice.model.v1.CreateEmailOtpRequest;
-import com.github.sujankumarmitra.otpservice.model.v1.CreateOtpResponse;
-import com.github.sujankumarmitra.otpservice.model.v1.JacksonCompatibleCreateEmailOtpRequest;
-import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
+import com.github.sujankumarmitra.otpservice.model.v1.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
+import static com.github.sujankumarmitra.otpservice.model.v1.OtpStatus.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -24,7 +22,12 @@ abstract class EmailOtpServiceTest {
 
     protected static final String VALID_OTP_ID = "c2cb811b-4596-4764-9ae7-ee2605352e60";
     protected static final String INVALID_OTP_ID = "c2cb811b-4596-4764-9ae7-ee2605352e61";
+    protected static final String INVALID_STATUS_OTP_ID = "ce98d9eb-6759-4cf7-bb21-d2255392cb4f";
+    protected static final String EXPIRED_OTP_ID = "ce98d9eb-6759-4cf7-bb21-d2255392cb4d";
     protected static final String VALID_EMAIL = "mitrakumarsujan@gmail.com";
+
+    protected static final String VALID_OTP_CODE = "aE2!zE";
+    protected static final String INVALID_OTP_CODE = "qwxzaw";
 
     @BeforeEach
     void setUp() {
@@ -59,4 +62,56 @@ abstract class EmailOtpServiceTest {
         assertNotNull(createOtpResponse);
         logger.info("OtpId {}", createOtpResponse.getOtpId());
     }
+
+    @Test
+    void givenValidOtpVerificationCode_whenVerifyOtp_shouldVerify() {
+        OtpVerificationRequest request = new JacksonCompatibleOtpVerificationRequest(VALID_OTP_ID, VALID_OTP_CODE);
+        OtpVerificationResponse response = assertDoesNotThrow(() -> serviceUnderTest.verifyOtp(request));
+
+        assertNotNull(response);
+        assertTrue(response.isVerified());
+        assertEquals(VERIFIED, response.getStatus());
+
+        logger.info("{}", response);
+    }
+
+    @Test
+    void givenInvalidOtpId_whenVerifyOtp_shouldThrowException() {
+        OtpVerificationRequest request = new JacksonCompatibleOtpVerificationRequest(INVALID_OTP_ID, VALID_OTP_CODE);
+        assertThrows(OtpNotFoundException.class, () -> serviceUnderTest.verifyOtp(request));
+    }
+
+    @Test
+    void givenExpiredOtp_whenVerifyOtp_shouldNotVerifyOtp() {
+        OtpVerificationRequest request = new JacksonCompatibleOtpVerificationRequest(EXPIRED_OTP_ID, VALID_OTP_CODE);
+        OtpVerificationResponse response = assertDoesNotThrow(() -> serviceUnderTest.verifyOtp(request));
+
+        assertFalse(response.isVerified());
+        assertEquals(EXPIRED, response.getStatus());
+
+        logger.info("{}", response);
+    }
+
+    @Test
+    void givenInvalidOtp_whenVerifyOtp_shouldNotVerifyOtp() {
+        OtpVerificationRequest request = new JacksonCompatibleOtpVerificationRequest(INVALID_STATUS_OTP_ID, VALID_OTP_CODE);
+        OtpVerificationResponse response = assertDoesNotThrow(() -> serviceUnderTest.verifyOtp(request));
+
+        assertFalse(response.isVerified());
+        assertEquals(INVALID, response.getStatus());
+
+        logger.info("{}", response);
+    }
+
+    @Test
+    void givenValidOtpIdButIncorrectOtpCode_whenVerifyOtp_shouldNotVerifyOtp() {
+        OtpVerificationRequest request = new JacksonCompatibleOtpVerificationRequest(VALID_OTP_ID, INVALID_OTP_CODE);
+        OtpVerificationResponse response = assertDoesNotThrow(() -> serviceUnderTest.verifyOtp(request));
+
+        assertFalse(response.isVerified());
+        assertEquals(WAITING_FOR_VERIFICATION, response.getStatus());
+
+        logger.info("{}", response);
+    }
+
 }

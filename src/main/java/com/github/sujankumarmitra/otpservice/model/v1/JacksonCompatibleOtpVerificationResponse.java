@@ -6,8 +6,17 @@ public class JacksonCompatibleOtpVerificationResponse extends AbstractOtpVerific
     private String message;
     private long attemptsRemaining;
 
-    public JacksonCompatibleOtpVerificationResponse(boolean verified) {
+    public JacksonCompatibleOtpVerificationResponse() {
+    }
+
+    public JacksonCompatibleOtpVerificationResponse(boolean verified,
+                                                    OtpStatus status,
+                                                    String message,
+                                                    long attemptsRemaining) {
         this.verified = verified;
+        this.status = status;
+        this.message = message;
+        this.attemptsRemaining = attemptsRemaining;
     }
 
     public boolean isVerified() {
