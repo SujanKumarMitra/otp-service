@@ -17,6 +17,8 @@ import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.github.sujankumarmitra.otpservice.model.v1.OtpStatus.*;
 
@@ -48,7 +50,7 @@ public class BasicEmailOtpService implements EmailOtpService {
     }
 
     @Override
-    public CreateOtpResponse createOtp(CreateEmailOtpRequest request) throws OtpCreationException {
+    public CreateOtpResponse createOtp(CreateEmailOtpRequest request) throws OtpCreationException,InvalidMessageTemplateException {
         EmailOtp emailOtp = buildEmailOtp(request);
         LOGGER.info("Creating EmailOtp with id = {}", emailOtp.getId());
         try {
@@ -85,9 +87,19 @@ public class BasicEmailOtpService implements EmailOtpService {
     private EmailOtp buildEmailOtp(CreateEmailOtpRequest request) {
         final String otpId = UUID.randomUUID().toString();
         final String otpCode = codeGenerator.generateNewOtpCode();
-        final String messageTemplate = request.getMessageTemplate() == null ?
-                otpProperties.getDefaultMessageTemplate() :
-                request.getMessageTemplate();
+        final String messageTemplate;
+        if(request.getMessageTemplate() != null) {
+            String regex = otpProperties.getMessageTemplateCodePlaceholderRegex();
+            Pattern pattern = Pattern.compile(regex);
+            String requestMessageTemplate = request.getMessageTemplate();
+            Matcher matcher = pattern.matcher(requestMessageTemplate);
+            if(!matcher.find()) {
+                throw new InvalidMessageTemplateException(regex);
+            }
+            messageTemplate = requestMessageTemplate;
+        } else {
+            messageTemplate = otpProperties.getDefaultMessageTemplate();
+        }
         return BasicEmailOtp.newBuilder()
                 .withId(otpId)
                 .withCode(otpCode)

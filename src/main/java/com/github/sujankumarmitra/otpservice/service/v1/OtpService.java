@@ -1,5 +1,6 @@
 package com.github.sujankumarmitra.otpservice.service.v1;
 
+import com.github.sujankumarmitra.otpservice.exception.v1.InvalidMessageTemplateException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpCreationException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpVerificationException;
@@ -21,7 +22,7 @@ public interface OtpService<T extends CreateOtpRequest> {
      * @return response
      * @throws OtpCreationException if any error occurs to start a new transaction
      */
-    CreateOtpResponse createOtp(T request) throws OtpCreationException;
+    CreateOtpResponse createOtp(T request) throws OtpCreationException, InvalidMessageTemplateException;
 
     /**
      * This method performs verification of an otp

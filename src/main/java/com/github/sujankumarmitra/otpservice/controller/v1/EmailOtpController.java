@@ -1,5 +1,6 @@
 package com.github.sujankumarmitra.otpservice.controller.v1;
 
+import com.github.sujankumarmitra.otpservice.exception.v1.InvalidMessageTemplateException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpCreationException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpNotFoundException;
 import com.github.sujankumarmitra.otpservice.exception.v1.OtpVerificationException;
@@ -54,6 +55,14 @@ public class EmailOtpController {
         ErrorResponse response = new JacksonCompatibleErrorResponse("Error creating otp. Please try again");
         return ResponseEntity
                 .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(response);
+    }
+
+    @ExceptionHandler(InvalidMessageTemplateException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidMessageTemplateException(InvalidMessageTemplateException exception) {
+        ErrorResponse response = new JacksonCompatibleErrorResponse("MessageTemplate does not contain OtpCode placeholder.");
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
 
