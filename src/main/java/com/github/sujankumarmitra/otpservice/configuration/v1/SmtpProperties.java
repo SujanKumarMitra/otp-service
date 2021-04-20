@@ -14,25 +14,25 @@ public interface SmtpProperties {
     /**
      * @return the smtp host
      */
-    String getSmtpHost();
+    String getHost();
 
     /**
      * @return the smtp port
      */
-    String getSmtpPort();
+    int getPort();
 
     /**
      * @return the smtp username
      */
-    String getSmtpUsername();
+    String getUsername();
 
     /**
      * @return the smtp password
      */
-    String getSmtpPassword();
+    String getPassword();
 
     /**
      * @return return additional properties related to smtp
      */
-    Map<String, String> getAdditionalProperties();
+    Map<String, String> getProperties();
 }
