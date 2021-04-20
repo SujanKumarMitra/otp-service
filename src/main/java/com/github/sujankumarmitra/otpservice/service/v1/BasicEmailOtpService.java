@@ -6,6 +6,8 @@ import com.github.sujankumarmitra.otpservice.dao.v1.OtpStatusDetailsDao;
 import com.github.sujankumarmitra.otpservice.exception.v1.*;
 import com.github.sujankumarmitra.otpservice.model.v1.*;
 import com.github.sujankumarmitra.otpservice.util.v1.OtpCodeGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class BasicEmailOtpService implements EmailOtpService {
     private EmailOtpProcessor emailOtpProcessor;
     private ExecutorService executorService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BasicEmailOtpService.class);
+
     @Autowired
     public BasicEmailOtpService(OtpCodeGenerator codeGenerator,
                                 OtpProperties otpProperties,
@@ -46,6 +50,7 @@ public class BasicEmailOtpService implements EmailOtpService {
     @Override
     public CreateOtpResponse createOtp(CreateEmailOtpRequest request) throws OtpCreationException {
         EmailOtp emailOtp = buildEmailOtp(request);
+        LOGGER.info("Creating EmailOtp with id = {}", emailOtp.getId());
         try {
             otpDao.save(emailOtp);
         } catch (OtpAlreadyExistsException e) {
@@ -100,6 +105,7 @@ public class BasicEmailOtpService implements EmailOtpService {
         final String message;
         final long attemptsRemaining;
 
+        LOGGER.info("Verifying Otp of id={}", request.getOtpId());
         final OtpStatusDetails otpStatusDetails = getOtpStatusDetails(request);
         final EmailOtp otp = getOtp(request);
         if (isAlreadyVerified(otpStatusDetails)) {
@@ -146,6 +152,9 @@ public class BasicEmailOtpService implements EmailOtpService {
                         .setTotalVerificationAttemptsMade(otp.getId(), attemptsMade);
             }
         }
+
+        LOGGER.info("Verification result of OtpId={}, verified={}, status={}", request.getOtpId(),verified, status);
+
         return new JacksonCompatibleOtpVerificationResponse(
                 verified,
                 status,

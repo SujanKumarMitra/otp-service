@@ -6,6 +6,8 @@ import com.github.sujankumarmitra.otpservice.exception.v1.OtpStatusDetailsNotFou
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatus;
 import com.github.sujankumarmitra.otpservice.model.v1.OtpStatusDetails;
 import com.github.sujankumarmitra.otpservice.util.v1.OtpStateDetailsResultSetExtractor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -31,6 +33,8 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
     private JdbcTemplate jdbcTemplate;
     private OtpStateDetailsResultSetExtractor resultSetExtractor;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcOtpStatusDetailsDao.class);
+
     @Autowired
     public JdbcOtpStatusDetailsDao(JdbcTemplate jdbcTemplate,
                                    OtpStateDetailsResultSetExtractor resultSetExtractor) {
@@ -40,6 +44,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
 
     @Override
     public void insertStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsAlreadyExistsException, OtpNotFoundException {
+        LOGGER.info("Saving OtpStatusDetails of id={}", statusDetails.getOtpId());
         try {
             jdbcTemplate.update(INSERT_STATEMENT,
                     null,
@@ -50,21 +55,27 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
             );
         } catch (DuplicateKeyException e) {
 //            otp already exists in db
+            LOGGER.warn("",e);
             throw new OtpStatusDetailsAlreadyExistsException(statusDetails.getOtpId());
         } catch (DataIntegrityViolationException e) {
 //            otpId not present in db (foreign key violation)
+            LOGGER.warn("",e);
             throw new OtpNotFoundException(statusDetails.getOtpId());
         }
     }
 
     @Override
     public Optional<OtpStatusDetails> getStatusDetails(String otpId) {
+        LOGGER.info("Fetching OtpStatusDetails of id={}",otpId);
         OtpStatusDetails otpStatusDetails = jdbcTemplate.query(SELECT_STATEMENT, resultSetExtractor, otpId);
+        if(otpStatusDetails == null)
+            LOGGER.info("No OtpStatusDetails found with id={}", otpId);
         return Optional.ofNullable(otpStatusDetails);
     }
 
     @Override
     public void updateStatusDetails(OtpStatusDetails statusDetails) throws OtpStatusDetailsNotFoundException {
+        LOGGER.info("Updating OtpStatusDetails with otpId={}", statusDetails.getOtpId());
         int rowsUpdated = jdbcTemplate.update(UPDATE_ALL_STATEMENT,
                 statusDetails.getCurrentStatus().getState(),
                 statusDetails.getCurrentStatusReasonPhrase(),
@@ -72,6 +83,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
                 statusDetails.getOtpId());
         if(rowsUpdated == 0) {
 //           no OtpStateDetails available with otpId
+            LOGGER.info("No OtpStatusDetails found with id={}", statusDetails.getOtpId());
             throw new OtpStatusDetailsNotFoundException(statusDetails.getOtpId());
         }
     }
@@ -80,12 +92,14 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
     public void setTotalVerificationAttemptsMade(String otpId, long attemptsMade) throws OtpStatusDetailsNotFoundException {
         if(attemptsMade < 0)
             throw new IllegalArgumentException("attemptsMade can't be negative");
+        LOGGER.info("Updating totalVerification attempts of otp with id={} to {}", otpId, attemptsMade);
         int rowsUpdated = jdbcTemplate.update(
                 UPDATE_ATTEMPTS_STATEMENT,
                 attemptsMade,
                 otpId);
         if(rowsUpdated == 0) {
 //           no OtpStateDetails available with otpId
+            LOGGER.info("No OtpStatusDetails found with id={}", otpId);
             throw new OtpStatusDetailsNotFoundException(otpId);
         }
     }
@@ -99,6 +113,7 @@ public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
                 otpId);
         if(rowsUpdated == 0) {
 //           no OtpStateDetails available with otpId
+            LOGGER.info("No OtpStatusDetails found with id={}", otpId);
             throw new OtpStatusDetailsNotFoundException(otpId);
         }
     }

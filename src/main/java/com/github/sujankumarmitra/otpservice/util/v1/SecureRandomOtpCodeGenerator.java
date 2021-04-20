@@ -1,5 +1,7 @@
 package com.github.sujankumarmitra.otpservice.util.v1;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
@@ -28,6 +30,8 @@ public class SecureRandomOtpCodeGenerator implements OtpCodeGenerator {
     private PrimitiveIterator.OfInt numbersIndexIterator;
     private PrimitiveIterator.OfInt specialCharsIndexIterator;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecureRandomOtpCodeGenerator.class);
+
     public SecureRandomOtpCodeGenerator() {
         random = new SecureRandom();
 
@@ -43,6 +47,7 @@ public class SecureRandomOtpCodeGenerator implements OtpCodeGenerator {
 
     @Override
     public String generateNewOtpCode() {
+        LOGGER.info("Generating new OtpCode");
         final StringBuilder code = new StringBuilder();
 
         /*
