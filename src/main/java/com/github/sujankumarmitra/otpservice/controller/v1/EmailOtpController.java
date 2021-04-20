@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/otp")
 public class EmailOtpController {
@@ -22,13 +24,13 @@ public class EmailOtpController {
     }
 
     @PostMapping(path = "/create", params = "type=email")
-    public ResponseEntity<CreateOtpResponse> createOtp(@RequestBody JacksonCompatibleCreateEmailOtpRequest request) {
+    public ResponseEntity<CreateOtpResponse> createOtp(@RequestBody @Valid JacksonCompatibleCreateEmailOtpRequest request) {
         CreateOtpResponse createOtpResponse = emailOtpService.createOtp(request);
         return ResponseEntity.ok(createOtpResponse);
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<OtpVerificationResponse> verifyOtp(@RequestBody JacksonCompatibleOtpVerificationRequest request) {
+    public ResponseEntity<OtpVerificationResponse> verifyOtp(@RequestBody @Valid JacksonCompatibleOtpVerificationRequest request) {
         OtpVerificationResponse response = emailOtpService.verifyOtp(request);
         return ResponseEntity.ok(response);
     }

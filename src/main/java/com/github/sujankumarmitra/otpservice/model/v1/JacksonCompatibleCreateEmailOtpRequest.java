@@ -1,9 +1,16 @@
 package com.github.sujankumarmitra.otpservice.model.v1;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class JacksonCompatibleCreateEmailOtpRequest implements CreateEmailOtpRequest {
 
+    @Email
     private String emailAddress;
     private String messageTemplate;
+    @Min(value = 30, message = "Expiry time is too short. Minimum time is 30")
+    @Max(value = 3600, message = "Expiry time is too long. Maximum time is 3600")
     private long expiryTimeInSeconds;
 
     public JacksonCompatibleCreateEmailOtpRequest() {
