@@ -62,7 +62,7 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
             @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = {
                     "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
-                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+                    "INSERT INTO otp_status_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
             }),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
@@ -76,7 +76,7 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
             @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = {
                     "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
-                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+                    "INSERT INTO otp_status_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
             }),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
@@ -90,7 +90,7 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
             @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = {
                     "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
-                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+                    "INSERT INTO otp_status_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
             }),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
@@ -116,7 +116,7 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
             @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = {
                     "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
-                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+                    "INSERT INTO otp_status_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
             }),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
@@ -130,7 +130,7 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
             @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = {
                     "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
-                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+                    "INSERT INTO otp_status_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
             }),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
@@ -154,7 +154,7 @@ class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
             @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = {
                     "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!')",
-                    "INSERT INTO otp_state_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
+                    "INSERT INTO otp_status_details VALUES(null,'" + EXISTING_OTP_ID + "','NEW','JUST CREATED',0)"
             }),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })

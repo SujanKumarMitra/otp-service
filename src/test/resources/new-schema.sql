@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS otp_state_details;
+DROP TABLE IF EXISTS otp_status_details;
 DROP TABLE IF EXISTS email_otp;
 
 CREATE TABLE email_otp (
@@ -11,11 +11,11 @@ CREATE TABLE email_otp (
     message_body VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE otp_state_details (
+CREATE TABLE otp_status_details (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	otp_uuid VARCHAR(36) UNIQUE NOT NULL,
-	current_status VARCHAR(10),
-	reason_phrase VARCHAR(50),
+	current_status VARCHAR(50),
+    reason_phrase VARCHAR(255),
 	total_attempts INTEGER,
 	FOREIGN KEY(otp_uuid) REFERENCES email_otp(uuid)
 );

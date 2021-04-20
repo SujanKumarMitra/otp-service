@@ -6,11 +6,16 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class OtpPropertiesTest {
+
+    public static final String REPLACEMENT = "RePlAcEd";
 
     @Configuration
     @EnableConfigurationProperties(BasicOtpProperties.class)
@@ -29,7 +34,14 @@ class OtpPropertiesTest {
     void givenProperties_shouldHaveCodePlaceholderRegexInDefaultMessageTemplate() {
         String messageTemplate = properties.getDefaultMessageTemplate();
         String regex = properties.getMessageTemplateCodePlaceholderRegex();
-        assertTrue(messageTemplate.contains(regex));
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(messageTemplate);
+        assertTrue(matcher.find());
+
+        String replacedMessageTemplate = messageTemplate.replaceAll(regex, REPLACEMENT);
+
+        assertTrue(replacedMessageTemplate.contains(REPLACEMENT));
     }
 
     @Test

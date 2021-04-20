@@ -22,11 +22,11 @@ import java.util.Optional;
 @Repository
 public class JdbcOtpStatusDetailsDao implements OtpStatusDetailsDao {
 
-    private static final String INSERT_STATEMENT = "INSERT INTO otp_state_details VALUES(?,?,?,?,?)";
-    private static final String SELECT_STATEMENT = "SELECT * FROM otp_state_details WHERE otp_uuid=?";
-    private static final String UPDATE_ALL_STATEMENT = "UPDATE otp_state_details SET current_status=?, reason_phrase=?, total_attempts=? WHERE otp_uuid=?";
-    private static final String UPDATE_ATTEMPTS_STATEMENT = "UPDATE otp_state_details SET total_attempts=? WHERE otp_uuid=?";
-    private static final String UPDATE_STATE_STATEMENT = "UPDATE otp_state_details SET current_status=?, reason_phrase=? WHERE otp_uuid=?";
+    private static final String INSERT_STATEMENT = "INSERT INTO otp_status_details VALUES(?,?,?,?,?)";
+    private static final String SELECT_STATEMENT = "SELECT * FROM otp_status_details WHERE otp_uuid=?";
+    private static final String UPDATE_ALL_STATEMENT = "UPDATE otp_status_details SET current_status=?, reason_phrase=?, total_attempts=? WHERE otp_uuid=?";
+    private static final String UPDATE_ATTEMPTS_STATEMENT = "UPDATE otp_status_details SET total_attempts=? WHERE otp_uuid=?";
+    private static final String UPDATE_STATE_STATEMENT = "UPDATE otp_status_details SET current_status=?, reason_phrase=? WHERE otp_uuid=?";
 
     private JdbcTemplate jdbcTemplate;
     private OtpStateDetailsResultSetExtractor resultSetExtractor;

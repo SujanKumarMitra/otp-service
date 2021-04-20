@@ -1,4 +1,4 @@
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE otp_state_details;
+TRUNCATE otp_status_details;
 TRUNCATE email_otp;
 SET FOREIGN_KEY_CHECKS = 1;

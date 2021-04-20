@@ -1,4 +1,4 @@
 otp:
-  default-message-template: "${OTP_DEFAULT_MESSAGE_TEMPLATE: Your Otp Verification code is $code$}"
-  message-template-code-placeholder-regex: "${OTP_PLACEHOLDER_REGEX: $code$}"
-  total-allowed-attempts: "${OTP_ALLOWED_ATTEMPTS: 3}"
+  default-message-template: "${OTP_DEFAULT_MESSAGE_TEMPLATE:Your Otp Verification code is $code$}"
+  message-template-code-placeholder-regex: "${OTP_PLACEHOLDER_REGEX:\\$code\\$}"
+  total-allowed-attempts: "${OTP_ALLOWED_ATTEMPTS:3}"
