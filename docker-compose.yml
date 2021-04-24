@@ -6,9 +6,9 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "/home/skmitra/Docker/volumes/mysql_db:/var/lib/mysql"
+      - "/home/skmitra/Coding/otp-service/db:/var/lib/mysql"
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
-      - "MYSQL_USER=guest"
-      - "MYSQL_PASSWORD=guest"
-      - "MYSQL_DATABASE=guest_db"
+      - "MYSQL_USER=user"
+      - "MYSQL_PASSWORD=password"
+      - "MYSQL_DATABASE=otp_service"

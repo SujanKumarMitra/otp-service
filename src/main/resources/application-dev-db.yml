@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: "jdbc:mysql://localhost:3306/guest_db"
-    username: "guest"
-    password: "guest"
+    url: "${DB_URL:jdbc:mysql://localhost:3306/otp_service}"
+    username: "${DB_USER:user}"
+    password: "${DB_PASSWORD:password}"
     initialization-mode: "always"
