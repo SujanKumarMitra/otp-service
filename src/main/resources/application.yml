@@ -9,3 +9,4 @@ spring:
         - "dev-db"
         - "dev-otp"
         - "dev-email"
+        - "dev-swagger"
