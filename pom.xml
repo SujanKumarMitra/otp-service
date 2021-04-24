@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.github.sujankumarmitra</groupId>
     <artifactId>otp-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Otp-Service</name>
     <description>Spring Boot Application featuring OTP as a Service</description>
     <properties>
