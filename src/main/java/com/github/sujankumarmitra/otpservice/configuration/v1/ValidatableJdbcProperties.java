@@ -1,6 +1,9 @@
 package com.github.sujankumarmitra.otpservice.configuration.v1;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * Implementation of {@link JdbcProperties}.
@@ -10,10 +13,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @version 1
  */
 @ConfigurationProperties(prefix = "spring.datasource")
-public class BasicJdbcProperties implements JdbcProperties {
+@Validated
+public class ValidatableJdbcProperties implements JdbcProperties {
 
+    @NotBlank
     private String url;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
     @Override

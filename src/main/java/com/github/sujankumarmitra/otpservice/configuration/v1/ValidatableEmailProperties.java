@@ -1,6 +1,10 @@
 package com.github.sujankumarmitra.otpservice.configuration.v1;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
+
 /**
  * Implementation of {@link EmailProperties}.
  * This class is annotated with {@link ConfigurationProperties} for property injection
@@ -9,14 +13,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @version 1
  */
 @ConfigurationProperties(prefix = "email")
-public class BasicEmailProperties implements EmailProperties {
+@Validated
+public class ValidatableEmailProperties implements EmailProperties {
 
+    @NotBlank(message = "Email Subject can't be blank")
     private String emailSubject;
 
-    public BasicEmailProperties() {
+    public ValidatableEmailProperties() {
     }
 
-    public BasicEmailProperties(String emailSubject) {
+    public ValidatableEmailProperties(String emailSubject) {
         this.emailSubject = emailSubject;
     }
 

@@ -1,6 +1,5 @@
 package com.github.sujankumarmitra.otpservice.configuration.v1;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -16,7 +15,7 @@ class EmailPropertiesTest {
     EmailProperties properties;
 
     @Configuration
-    @EnableConfigurationProperties(BasicEmailProperties.class)
+    @EnableConfigurationProperties(ValidatableEmailProperties.class)
     static class Config {
     }
 

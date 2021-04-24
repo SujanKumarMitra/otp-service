@@ -1,6 +1,14 @@
 package com.github.sujankumarmitra.otpservice.configuration.v1;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of {@link OtpProperties}.
@@ -10,16 +18,20 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @version 1
  */
 @ConfigurationProperties(prefix = "otp")
-public class BasicOtpProperties implements OtpProperties {
+@Validated
+public class ValidatableOtpProperties implements OtpProperties, Validator {
 
+    @NotBlank
     private String defaultMessageTemplate;
+    @NotBlank
     private String messageTemplateCodePlaceholderRegex;
+    @Min(1)
     private long totalAllowedAttempts;
 
-    public BasicOtpProperties() {
+    public ValidatableOtpProperties() {
     }
 
-    public BasicOtpProperties(
+    public ValidatableOtpProperties(
             String defaultMessageTemplate,
             String messageTemplateCodePlaceholderRegex,
             long totalAllowedAttempts) {
@@ -63,5 +75,21 @@ public class BasicOtpProperties implements OtpProperties {
                 ", messageTemplateCodePlaceholderRegex='" + messageTemplateCodePlaceholderRegex + '\'' +
                 ", totalAllowedAttempts=" + totalAllowedAttempts +
                 '}';
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return getClass().equals(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Pattern pattern = Pattern.compile(messageTemplateCodePlaceholderRegex);
+        Matcher matcher = pattern.matcher(defaultMessageTemplate);
+        if(!matcher.find()) {
+            errors.rejectValue(
+                    "defaultMessageTemplate",
+                    "MessageTemplate does not contain otp placeholder");
+        }
     }
 }

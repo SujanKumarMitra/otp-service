@@ -18,7 +18,7 @@ class OtpPropertiesTest {
     public static final String REPLACEMENT = "RePlAcEd";
 
     @Configuration
-    @EnableConfigurationProperties(BasicOtpProperties.class)
+    @EnableConfigurationProperties(ValidatableOtpProperties.class)
     static class Config {
     }
 

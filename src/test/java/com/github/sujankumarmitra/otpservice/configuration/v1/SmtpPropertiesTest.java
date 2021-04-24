@@ -1,7 +1,6 @@
 package com.github.sujankumarmitra.otpservice.configuration.v1;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +26,7 @@ class SmtpPropertiesTest {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Configuration
-    @EnableConfigurationProperties(BasicSmtpProperties.class)
+    @EnableConfigurationProperties(ValidatableSmtpProperties.class)
     static class Config {}
 
 

@@ -4,12 +4,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Class for property injection of {@link BasicEmailProperties}
+ * Class for property injection of {@link ValidatableEmailProperties}
  *
  * @author skmitra
  * @version 1
  */
 @Configuration
-@EnableConfigurationProperties(BasicEmailProperties.class)
+@EnableConfigurationProperties(ValidatableEmailProperties.class)
 public class EmailConfiguration {
 }

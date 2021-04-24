@@ -1,7 +1,7 @@
 package com.github.sujankumarmitra.otpservice.service.v1;
 
-import com.github.sujankumarmitra.otpservice.configuration.v1.BasicEmailProperties;
-import com.github.sujankumarmitra.otpservice.configuration.v1.BasicOtpProperties;
+import com.github.sujankumarmitra.otpservice.configuration.v1.ValidatableEmailProperties;
+import com.github.sujankumarmitra.otpservice.configuration.v1.ValidatableOtpProperties;
 import com.github.sujankumarmitra.otpservice.configuration.v1.EmailProperties;
 import com.github.sujankumarmitra.otpservice.configuration.v1.OtpProperties;
 import com.github.sujankumarmitra.otpservice.dao.v1.EmailOtpDao;
@@ -25,7 +25,7 @@ class BasicEmailOtpProcessorTest extends EmailOtpProcessorTest {
 
 
     @Configuration
-    @EnableConfigurationProperties({BasicOtpProperties.class, BasicEmailProperties.class})
+    @EnableConfigurationProperties({ValidatableOtpProperties.class, ValidatableEmailProperties.class})
     static class Config {
 
         @MockBean
