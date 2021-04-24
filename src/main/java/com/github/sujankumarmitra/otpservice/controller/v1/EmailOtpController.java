@@ -43,6 +43,7 @@ public class EmailOtpController {
     }
 
     @ExceptionHandler(OtpNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponse> handleOtpNotFoundException(OtpNotFoundException exception) {
         ErrorResponse response = new JacksonCompatibleErrorResponse(exception.getMessage());
         return ResponseEntity
@@ -51,6 +52,7 @@ public class EmailOtpController {
     }
 
     @ExceptionHandler(OtpCreationException.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     public ResponseEntity<ErrorResponse> handleOtpCreationException(OtpCreationException exception) {
         ErrorResponse response = new JacksonCompatibleErrorResponse("Error creating otp. Please try again");
         return ResponseEntity
@@ -59,6 +61,7 @@ public class EmailOtpController {
     }
 
     @ExceptionHandler(InvalidMessageTemplateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponse> handleInvalidMessageTemplateException(InvalidMessageTemplateException exception) {
         ErrorResponse response = new JacksonCompatibleErrorResponse("MessageTemplate does not contain OtpCode placeholder.");
         return ResponseEntity
@@ -67,6 +70,7 @@ public class EmailOtpController {
     }
 
     @ExceptionHandler(OtpVerificationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorResponse> handleOtpVerificationException(OtpVerificationException exception) {
         ErrorResponse response = new JacksonCompatibleErrorResponse("Error verifying otp. Please try again");
         return ResponseEntity
