@@ -1,10 +1,13 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
+import com.github.sujankumarmitra.otpservice.util.v1.OtpStateDetailsResultSetExtractor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
@@ -20,16 +23,16 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
  * @version 1
  * @see JdbcOtpStatusDetailsDao
  */
-@SpringBootTest
+@DataJdbcTest
 class JdbcOtpStatusDetailsDaoTest extends OtpStatusDetailsDaoTest {
 
     @Autowired
-    JdbcOtpStatusDetailsDao stateDetailsDao;
+    JdbcTemplate jdbcTemplate;
 
     @Override
     @BeforeEach
     void setUp() {
-        daoUnderTest = stateDetailsDao;
+        daoUnderTest = new JdbcOtpStatusDetailsDao(jdbcTemplate, new OtpStateDetailsResultSetExtractor());
         logger = LoggerFactory.getLogger(getClass());
         super.setUp();
     }

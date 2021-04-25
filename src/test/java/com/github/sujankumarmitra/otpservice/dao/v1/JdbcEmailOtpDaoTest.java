@@ -1,10 +1,12 @@
 package com.github.sujankumarmitra.otpservice.dao.v1;
 
+import com.github.sujankumarmitra.otpservice.util.v1.EmailOtpResultSetExtractor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 
@@ -20,16 +22,17 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
  * @version 1
  * @see JdbcEmailOtpDao
  */
-@SpringBootTest
+@DataJdbcTest
 class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
 
+
     @Autowired
-    JdbcEmailOtpDao emailOtpDao;
+    JdbcTemplate jdbcTemplate;
 
     @Override
     @BeforeEach
     void setUp() {
-        daoUnderTest = emailOtpDao;
+        daoUnderTest = new JdbcEmailOtpDao(jdbcTemplate, new EmailOtpResultSetExtractor());
         logger = LoggerFactory.getLogger(getClass());
         super.setUp();
     }
@@ -58,7 +61,7 @@ class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
     @Override
     @Test
     @SqlGroup({
-            @Sql(scripts ="classpath:/new-schema.sql"),
+            @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = "INSERT INTO email_otp VALUES (null,'" + VALID_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!' )"),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
@@ -79,7 +82,7 @@ class JdbcEmailOtpDaoTest extends EmailOtpDaoTest {
     @Override
     @Test
     @SqlGroup({
-            @Sql(scripts ="classpath:/new-schema.sql"),
+            @Sql(scripts = "classpath:/new-schema.sql"),
             @Sql(statements = "INSERT INTO email_otp VALUES (null,'" + EXISTING_OTP_ID + "','q1X0z!',1618378580139,300000,'mitrakumarsujan@gmail.com','OTP Code: q1X0z!' )"),
             @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "classpath:/truncate-all.sql")
     })
