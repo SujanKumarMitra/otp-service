@@ -11,11 +11,11 @@ ENDPOINTS:
     1. params: type=email
     2. body:
        
-       {
+       `{
        "emailAddress": "string",
        "messageTemplate": "string",
        "expiryTimeInSeconds": 3600
-       }
+       }`
        
    3. response: 
       1. 200:  `{"otpId": "string"}`
@@ -76,4 +76,4 @@ ENDPOINTS:
 2. Fill proper credentials in
    1. [application-dev-smtp.yml](src/main/resources/application-dev-smtp.yml)
    2. [application-dev-db.yml](src/main/resources/application-dev-db.yml)
-3. Run `mvn spring-boot:run`
+3. Run `mvnw spring-boot:run`
